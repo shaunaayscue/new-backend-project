@@ -13,11 +13,9 @@ function getAllProducts(req, res, next) {
 function searchProducts(req, res, next) {
     let attribute = req.query.attribute;
     let value = req.query.value;
-    let category_name = req.query.category_name; // Get the category name from query parameters
+    let category_name = req.query.category_name; 
     try {
         let products;
-        
-        // If both attribute and value are provided and category_name is provided
         if (attribute && value && category_name) {
             const validColumns = model.getColumnNames();
             if (!validColumns.includes(attribute)) {
@@ -26,7 +24,6 @@ function searchProducts(req, res, next) {
             const searchValue = "%" + value + "%";
             products = model.searchByAttributeAndCategory(attribute, searchValue, category_name);
         }
-        // If only attribute and value are provided
         else if (attribute && value) {
             const validColumns = model.getColumnNames();
             if (!validColumns.includes(attribute)) {
@@ -35,11 +32,9 @@ function searchProducts(req, res, next) {
             const searchValue = "%" + value + "%";
             products = model.getAllByOneAttribute(attribute, searchValue);
         }
-        // If only category_name is provided
         else if (category_name) {
             products = model.getProductsByCategory(category_name);
         }
-        // If neither attribute nor category_name are provided, fetch all products
         else {
             products = model.getAllProducts();
         }
