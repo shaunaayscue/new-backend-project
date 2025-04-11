@@ -132,6 +132,7 @@ http://localhost:3000/cart/add
 }
 ```
 (Add a second JSON body seperately to do the "removing a product from cart" endpoint next.)
+- Second JSON BODY
 ```
 {
     "user_id": 1,
