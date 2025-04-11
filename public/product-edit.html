@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+  Name: Shauna Ayscue
+  Date: 02.28.2025
+  CSC 372-01
+
+  This is the product-edit.html page to allow admins to modify details of a product.
+  All the fields (except the product id) are editable on this page.
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Product Edit - The Book Haven</title>
+    <link rel="stylesheet" href="styles/admin.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div id="logo-container">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Book Haven Logo" id="logo-img">
+                </a>
+                <div id="text-container">
+                    <a href="index.html" id="site-title">The Book Haven</a>
+                    <span id="tagline">Admin Page</span>
+                </div>
+            </div>
+            <div id="nav-right">
+                <ul>
+
+                    <li>
+                        <div id="dropdown">
+                            <a href="#" id="dropbtn">Account</a>
+                            <div id="dropdown-content">
+                                <a href="#">Admin Sign Out</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <nav id="genres">
+            <ul>
+                <li><a href="admin-upload.html">Bulk Upload</a></li>
+                <li><a href="admin-products.html">Product List</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Edit Product</h2>
+        <form>
+            <fieldset>
+                <legend>Product Information</legend>
+
+                <label for="product-id">Product ID:</label>
+                <input type="text" id="product-id" name="product-id" value="1" readonly>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="Sample Product" required>
+
+                <label for="image">Image Path:</label>
+                <input type="text" id="image" name="image" value="images/sample-product.jpg" required>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" value="19.99" step="0.01" min="0" required>
+
+                <label for="isbn">ISBN:</label>
+                <input type="text" id="isbn" name="isbn" value="123456789" required>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" value="John Doe" required>
+
+                <label for="category">Category Name:</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled>Select a category</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Mystery/Thriller">Mystery/Thriller</option>
+                    <option value="Fantasy">Fantasy</option>
+                </select>
+
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages" value="250" required>
+
+                <label for="publisher">Publisher:</label>
+                <input type="text" id="publisher" name="publisher" value="Sample Publisher" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required>
+This is a sample product description. It provides an overview of the book's content and author.
+                </textarea>
+
+                <div>
+                    <button type="submit">Save Changes</button>
+                </div>
+            </fieldset>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 The Book Haven | All rights reserved</p>
+        <p><em>Your next great adventure is just a page away!</em></p>
+    </footer>
+
+</body>
+
+</html>

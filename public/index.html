@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--
+  Name: Shauna Ayscue
+  Date: 02.07.2025
+  CSC 372-01
+
+  This is the index.html page for the Book Haven website. It includes book categories
+  for featured books, trending books, and newest releases.
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Book Haven</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div id="logo-container">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Book Haven Logo" id="logo-img">
+                </a>
+                <div id="text-container">
+                    <a href="index.html" id="site-title">The Book Haven</a>
+                    <span id="tagline">Your next great adventure is just a page away!</span>
+                </div>
+            </div>
+            <div id="nav-right">
+                <ul>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li>
+                        <div id="dropdown">
+                            <a href="#" id="dropbtn">Account</a>
+                            <div id="dropdown-content">
+                                <a href="#">Sign In</a>
+                                <a href="#">Sign Out</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav id="genres">
+            <ul>
+                <li><a href="products.html">SEE ALL BOOKS</a></li>
+                <li><a href="#">FICTION</a></li>
+                <li><a href="#">NON-FICTION</a></li>
+                <li><a href="#">ROMANCE</a></li>
+                <li><a href="#">MYSTERY/THRILLER</a></li>
+                <li><a href="#">FANTASY</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="book-banner">
+            <img src="images/banner.jpg" alt="Book Banner" id="banner-img">
+        </div>
+
+        <p><a href="admin-upload.html"><strong>Admin Pages (for testing/grading purposes only)</strong></a></p>
+
+        <div id="search-container">
+            <input type="text" id="search" name="search" placeholder="Search for your next read...">
+            <button type="submit" id="search-btn">Go</button>
+        </div>
+        <section id="splash">
+            <h3>Discover trending titles, timeless classics, and books you'll love—all in one place.</h3>
+            <p><strong>Ready to find your next great read?</strong> <a href="#">Sign Up Now</a> </p>
+        </section>
+
+        <section id="featured-books">
+            <h2>Featured Books</h2>
+            <p>Handpicked favorites you’ll love!</p>
+            <div class="product-grid">
+                <article class="product">
+                    <a href="#">
+                        <img src="images/silent-patient.jpg" alt="The Silent Patient">
+                        <div class="product-title">
+                            <h3>The Silent Patient</h3>
+                        </div>
+                    </a>
+                    <p>by Alex Michaelides</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/diary-of-young-girl.jpg" alt="The Diary of a Young Girl">
+                        <div class="product-title">
+                            <h3>The Diary of a Young Girl: The Definitive Edition</h3>
+                        </div>
+                    </a>
+                    <p>by Anne Frank, Otto M. Frank (Editor), Mirjam Pressler (Editor), Susan Massotty (Translator)</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/the-alchemist.jpg" alt="The Alchemist">
+                        <div class="product-title">
+                            <h3>The Alchemist</h3>
+                        </div>
+                    </a>
+                    <p>by Paulo Coelho</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/the-hating-game.jpg" alt="The Hating Game">
+                        <div class="product-title">
+                            <h3>The Hating Game</h3>
+                        </div>
+                    </a>
+                    <p>by Sally Thorne</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="trending-books">
+            <h2>Trending Books</h2>
+            <p>The books everyone’s talking about – be part of the conversation!</p>
+            <div class="product-grid">
+                <article class="product">
+                    <a href="#">
+                        <img src="images/it-ends-with-us.jpg" alt="It Ends With Us">
+                        <div class="product-title">
+                            <h3>It Ends With Us</h3>
+                        </div>
+                    </a>
+                    <p>by Colleen Hoover</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/handmaids-tale.jpg" alt="The Handmaid's Tale">
+                        <div class="product-title">
+                            <h3>The Handmaid's Tale</h3>
+                        </div>
+                    </a>
+                    <p>by Margaret Atwood</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/gatsby.jpg" alt="The Great Gatsby">
+                        <div class="product-title">
+                            <h3>The Great Gatsby</h3>
+                        </div>
+                    </a>
+                    <p>by F. Scott Fitzgerald</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/the-notebook.jpg" alt="The Notebook">
+                        <div class="product-title">
+                            <h3>The Notebook</h3>
+                        </div>
+                    </a>
+                    <p>by Nicholas Sparks</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="newest-releases">
+            <h2>Newest Releases</h2>
+            <p>Be the first to explore these brand new stories!</p>
+            <div class="product-grid">
+                <article class="product">
+                    <a href="#">
+                        <img src="images/last-ember.jpg" alt="The Last Ember">
+                        <div class="product-title">
+                            <h3>The Last Ember</h3>
+                        </div>
+                    </a>
+                    <p>by Daniel Levin</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/before-i-go-to-sleep.jpg" alt="Before I Go To Sleep">
+                        <div class="product-title">
+                            <h3>Before I Go To Sleep</h3>
+                        </div>
+                    </a>
+                    <p>by S.J. Watson</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/quiet.jpg" alt="Quiet">
+                        <div class="product-title">
+                            <h3>Quiet: The Power of Introverts in a World That Can't Stop Talking</h3>
+                        </div>
+                    </a>
+                    <p>by Susan Cain</p>
+                </article>
+                <article class="product">
+                    <a href="#">
+                        <img src="images/jfk-conspiracy.jpg" alt="The JFK Conspiracy">
+                        <div class="product-title">
+                            <h3>The JFK Conspiracy: The Secret Plot to Kill Kennedy-and Why It Failed</h3>
+                        </div>
+                    </a>
+                    <p>by Brad Meltzer, Josh Mensch</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 The Book Haven | All rights reserved</p>
+        <p><em>Your next great adventure is just a page away!</em></p>
+    </footer>
+
+</body>
+
+</html>

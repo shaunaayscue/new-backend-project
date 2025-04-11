@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  Name: Shauna Ayscue
+  Date: 02.07.2025
+  CSC 372-01
+
+  This is the details.html page for the Book Haven website. It includes a details, such as
+  images, title, description, price, isbn, author, genre, pages, publisher.
+  for each product in The Book Haven.
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - The Book Haven</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <script src="scripts.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div id="logo-container">
+        <a href="index.html">
+          <img src="images/logo.jpg" alt="Book Haven Logo" id="logo-img">
+        </a>
+        <div id="text-container">
+          <a href="index.html" id="site-title">The Book Haven</a>
+          <span id="tagline">Your next great adventure is just a page away!</span>
+        </div>
+      </div>
+      <div id="nav-right">
+        <ul>
+          <li><a href="cart.html">Cart</a></li>
+          <li>
+            <div id="dropdown">
+              <a href="#" id="dropbtn">Account</a>
+              <div id="dropdown-content">
+                <a href="#">Sign In</a>
+                <a href="#">Sign Out</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="genres">
+      <ul>
+        <li><a href="products.html">SEE ALL BOOKS</a></li>
+        <li><a href="#">FICTION</a></li>
+        <li><a href="#">NON-FICTION</a></li>
+        <li><a href="#">ROMANCE</a></li>
+        <li><a href="#">MYSTERY/THRILLER</a></li>
+        <li><a href="#">FANTASY</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="book-banner">
+      <img src="images/banner.jpg" alt="Book Banner" id="banner-img">
+    </div>
+
+    <div id="product-container">
+      <div id="product-images">
+        <img src="images/handmaids-tale.jpg" alt="Front Cover">
+      </div>
+
+      <article id="product-info">
+        <h1>The Handmaid's Tale</h1>
+        <p>
+          The Handmaid's Tale by Margaret Atwood is a dystopian novel about a
+          woman, Offred, living in a theocratic society where women are controlled and used for reproduction.
+        </p>
+        <p>Price: <span id="price">$14.99</span></p>
+        <ul>
+          <li><strong>ISBN:</strong> 9781250</li>
+          <li><strong>Author:</strong> Margaret Atwood</li>
+          <li><strong>Genre:</strong> Fiction</li>
+          <li><strong>Pages:</strong> 325</li>
+          <li><strong>Publisher:</strong> RANDOM HOUSE UK</li>
+        </ul>
+
+        <button id="add-to-cart-btn">Add to Cart</button>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 The Book Haven | All rights reserved</p>
+    <p><em>Your next great adventure is just a page away!</em></p>
+  </footer>
+
+</body>
+
+</html>
