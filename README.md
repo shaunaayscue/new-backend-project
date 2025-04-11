@@ -7,7 +7,7 @@ A project using NODE and Express JS.
   - download zip
   - clone
 ```
-git clone https://github.com/shaunaayscue/project-fullstack
+git clone https://github.com/shaunaayscue/new-backend-project
 ```
 
 - Open the project in VSCode.
