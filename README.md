@@ -131,7 +131,8 @@ http://localhost:3000/cart/add
   }
 }
 ```
-(For the add products to cart endpoint, add a second JSON body seperately to smoothly do the next endpoints)
+(Add a second JSON body seperately to do the "removing a product from cart" endpoint next.)
+- Second JSON BODY
 ```
 {
     "user_id": 1,
