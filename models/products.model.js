@@ -7,16 +7,21 @@ function getBooksByFlag(flag, value) {
 }
 
 function getAllProducts(sortBy) {
-    let sql = "SELECT p.*, c.category_name FROM Products p LEFT JOIN Categories c ON p.category_id = c.category_id WHERE p.is_archived = 0;";
-    if (sortBy === 'name-asc') {
-        sql += " ORDER BY p.product_name ASC";
-    } else if (sortBy === 'name-desc') {
-        sql += " ORDER BY p.product_name DESC";
-    } else if (sortBy === 'price-asc') {
-        sql += " ORDER BY p.price ASC";
-    } else if (sortBy === 'price-desc') {
-        sql += " ORDER BY p.price DESC";
+    let sql = "SELECT p.*, c.category_name FROM Products p LEFT JOIN Categories c ON p.category_id = c.category_id WHERE p.is_archived = 0";
+    const validSortOptions = ['name-asc', 'name-desc', 'price-asc', 'price-desc'];
+
+    if (sortBy && validSortOptions.includes(sortBy)) {
+        if (sortBy === 'name-asc') {
+            sql += " ORDER BY p.product_name ASC";
+        } else if (sortBy === 'name-desc') {
+            sql += " ORDER BY p.product_name DESC";
+        } else if (sortBy === 'price-asc') {
+            sql += " ORDER BY p.price ASC";
+        } else if (sortBy === 'price-desc') {
+            sql += " ORDER BY p.price DESC";
+        }
     }
+    console.log("getAllProducts SQL:", sql);
     const allProducts = db.all(sql);
     const updatedProducts = allProducts.map(product => ({
         ...product,
@@ -25,6 +30,9 @@ function getAllProducts(sortBy) {
     }));
     return updatedProducts;
 }
+
+// Apply similar validation to other model functions that use the 'sortBy' parameter
+// (e.g., getProductsByCategory, getAllByOneAttribute, searchByAttributeAndCategory)
 
 function getAllProductsWithCategoryNames() {
     const sql = "SELECT p.*, c.category_name FROM Products p LEFT JOIN Categories c ON p.category_id = c.category_id;";
@@ -39,6 +47,7 @@ function getAllProductsWithCategoryNames() {
 
 function getProductsByCategory(category_name) {
     let sql = "SELECT p.* FROM Products p JOIN Categories c ON p.category_id = c.category_id WHERE LOWER(c.category_name) = LOWER(?) AND p.is_archived = 0;";
+    console.log("getProductsByCategory SQL:", sql);
     const data = db.all(sql, [category_name]);
     return data;
 }
@@ -47,6 +56,7 @@ function getAllByOneAttribute(attribute, value) {
     const validColumns = getColumnNames();
     if (validColumns.includes(attribute)) {
         let sql = "SELECT * FROM Products WHERE " + attribute + " LIKE ?;";
+        console.log("getAllByOneAttribute SQL:", sql);
         const data = db.all(sql, [value]);
         return data;
     }
@@ -56,6 +66,7 @@ function searchByAttributeAndCategory(attribute, value, category_name) {
     const validColumns = getColumnNames();
     if (validColumns.includes(attribute)) {
         let sql = "SELECT p.* FROM Products p JOIN Categories c ON p.category_id = c.category_id WHERE " + attribute + " LIKE ? AND c.category_name = ?;";
+        console.log("searchByAttributeAndCategory SQL:", sql);
         const data = db.all(sql, [value, category_name]);
         return data;
     }

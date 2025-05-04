@@ -74,33 +74,33 @@ function searchProducts(req, res, next) {
   const { category_name, value: searchTerm, attribute: searchAttribute } = req.query;
 
   try {
-      let searchResults = [];
+    let searchResults = [];
 
-      if (category_name && category_name !== "all") {
-          if (searchTerm && searchAttribute) {
-              searchResults = model.searchProductsByNameAndCategory(searchTerm, category_name);
-          } else {
-              searchResults = model.getAdminProductsByCategory(category_name);
-          }
+    if (category_name && category_name !== "all") {
+      if (searchTerm && searchAttribute) {
+        searchResults = model.searchProductsByNameAndCategory(searchTerm, category_name);
       } else {
-          if (searchTerm && searchAttribute) {
-              searchResults = model.searchProductsByName(searchTerm);  
-          } else {
-              searchResults = model.getAllProductsWithCategoryNames();
-          }
+        searchResults = model.getAdminProductsByCategory(category_name);
       }
+    } else {
+      if (searchTerm && searchAttribute) {
+        searchResults = model.searchProductsByName(searchTerm);
+      } else {
+        searchResults = model.getAllProductsWithCategoryNames();
+      }
+    }
 
-      const categories = model.getAllCategories();   
-      res.render("admin-products", {
-          products: searchResults, 
-          searchTerm: searchTerm,
-          searchPerformed: true,
-          selectedCategory: category_name || "all",
-          categories
-      });
+    const categories = model.getAllCategories();
+    res.render("admin-products", {
+      products: searchResults,
+      searchTerm: searchTerm,
+      searchPerformed: true,
+      selectedCategory: category_name || "all",
+      categories
+    });
   } catch (err) {
-      console.error("Error in searchProducts:", err.message);
-      next(err);
+    console.error("Error in searchProducts:", err.message);
+    next(err);
   }
 }
 
@@ -118,31 +118,31 @@ function getProductById(req, res, next) {
 
 function createNew(req, res, next) {
   const {
-      product_name, description, image_url, price, isbn, author,
-      category_id, pages, publisher, featured, trending, new_release, is_archived
+    product_name, description, image_url, price, isbn, author,
+    category_id, pages, publisher, featured, trending, new_release, is_archived
   } = req.body;
 
   if (product_name && description && image_url && price && isbn && author && category_id && pages && publisher) {
-      try {
-          const params = [
-              product_name, description, image_url,
-              Number(price), isbn, author,
-              Number(category_id), Number(pages), publisher,
-              featured === "1" ? 1 : 0,
-              trending === "1" ? 1 : 0,
-              new_release === "1" ? 1 : 0,
-              is_archived === "1" ? 1 : 0 
-          ];
-          adminModel.createNew(params);
-          const products = model.getAllProductsWithCategoryNames();
-          const categories = model.getAllCategories();
-          res.render("admin-products", { products, categories, searchTerm: '' }); 
-        } catch (err) {
-          console.error("Error while creating product: ", err.message);
-          next(err);
-      }
+    try {
+      const params = [
+        product_name, description, image_url,
+        Number(price), isbn, author,
+        Number(category_id), Number(pages), publisher,
+        featured === "1" ? 1 : 0,
+        trending === "1" ? 1 : 0,
+        new_release === "1" ? 1 : 0,
+        is_archived === "1" ? 1 : 0
+      ];
+      adminModel.createNew(params);
+      const products = model.getAllProductsWithCategoryNames();
+      const categories = model.getAllCategories();
+      res.render("admin-products", { products, categories, searchTerm: '' });
+    } catch (err) {
+      console.error("Error while creating product: ", err.message);
+      next(err);
+    }
   } else {
-      res.status(400).send("Invalid Request: Missing required fields");
+    res.status(400).send("Invalid Request: Missing required fields");
   }
 }
 
@@ -150,7 +150,9 @@ function deleteProduct(req, res, next) {
   try {
     const productId = req.params.product_id;
     adminModel.deleteProduct(productId);
-    res.send("Product deleted successfully");
+    const products = adminModel.getAllProductsForAdmin(); // <--- CORRECT FUNCTION NAME
+        const categories = model.getAllCategories()
+        res.render("admin-products", { products: products, categories: categories, searchTerm: '' });
   } catch (err) {
     console.error("Error while deleting product: ", err.message);
     next(err);
@@ -159,34 +161,34 @@ function deleteProduct(req, res, next) {
 
 function editProduct(req, res, next) {
   const {
-      product_name, description, image_url, price, isbn, author,
-      category_id, pages, publisher, featured = "0", trending = "0", new_release = "0",
-      is_archived = "0" 
+    product_name, description, image_url, price, isbn, author,
+    category_id, pages, publisher, featured = "0", trending = "0", new_release = "0",
+    is_archived = "0"
   } = req.body;
   const product_id = req.params.product_id;
 
   if (product_name && description && image_url && price && isbn && author && category_id && pages && publisher) {
-      try {
-          const params = [
-              product_name, description, image_url,
-              Number(price), isbn, author,
-              Number(category_id), Number(pages), publisher,
-              featured === "1" ? 1 : 0,
-              trending === "1" ? 1 : 0,
-              new_release === "1" ? 1 : 0,
-              is_archived === "1" ? 1 : 0, 
-              product_id
-          ];
-          adminModel.editProduct(params);
-          const products = model.getAllProductsWithCategoryNames();
-          const categories = model.getAllCategories();
-          res.render("admin-products", { products, categories, searchTerm: '' }); 
-      } catch (err) {
-          console.error("Error while editing product: ", err.message);
-          next(err);
-      }
+    try {
+      const params = [
+        product_name, description, image_url,
+        Number(price), isbn, author,
+        Number(category_id), Number(pages), publisher,
+        featured === "1" ? 1 : 0,
+        trending === "1" ? 1 : 0,
+        new_release === "1" ? 1 : 0,
+        is_archived === "1" ? 1 : 0,
+        product_id
+      ];
+      adminModel.editProduct(params);
+      const products = model.getAllProductsWithCategoryNames();
+      const categories = model.getAllCategories();
+      res.render("admin-products", { products, categories, searchTerm: '' });
+    } catch (err) {
+      console.error("Error while editing product: ", err.message);
+      next(err);
+    }
   } else {
-      res.status(400).send("Invalid Request: Missing required fields");
+    res.status(400).send("Invalid Request: Missing required fields");
   }
 }
 
@@ -241,7 +243,7 @@ const bulkUploadProducts = [
 
       adminModel.bulkUploadProducts(productsData);
 
-      fs.unlinkSync(filePath); 
+      fs.unlinkSync(filePath);
       res.redirect('/admin/products/list');
     } catch (error) {
       console.error('Error processing uploaded file:', error);
@@ -257,39 +259,103 @@ function getAllProducts(req, res, next) {
   const categoryName = req.query.category_name || 'all';
   const searchTerm = req.query.searchTerm || '';
   try {
-      let products = adminModel.getAllProductsForAdmin();
+    let products = adminModel.getAllProductsForAdmin();
 
-      console.log("Products before filtering:", products); 
+    console.log("Products before filtering:", products);
 
-      if (searchTerm) {
-          const trimmedSearchTerm = searchTerm.toLowerCase().trim();
-          products = products.filter(product =>
-              product.product_name.toLowerCase().trim().includes(trimmedSearchTerm) ||
-              product.category_name.toLowerCase().trim().includes(trimmedSearchTerm)
-          );
-      }
+    if (searchTerm) {
+      const trimmedSearchTerm = searchTerm.toLowerCase().trim();
+      products = products.filter(product =>
+        product.product_name.toLowerCase().trim().includes(trimmedSearchTerm) ||
+        product.category_name.toLowerCase().trim().includes(trimmedSearchTerm)
+      );
+    }
 
-      if (categoryName !== 'all') {
-          products = products.filter(product =>
-              product.category_name === categoryName
-          );
-      }
+    if (categoryName !== 'all') {
+      products = products.filter(product =>
+        product.category_name === categoryName
+      );
+    }
 
-      const categories = model.getAllCategories();
-      console.log("Products being rendered:", products);
-      res.render("admin-products", { products, categories, searchTerm: searchTerm, selectedCategory: categoryName, user: req.user });
+    const categories = model.getAllCategories();
+    console.log("Products being rendered:", products);
+    res.render("admin-products", { products, categories, searchTerm: searchTerm, selectedCategory: categoryName, user: req.user });
   } catch (err) {
-      console.error("Error fetching admin products:", err.message);
-      next(err);
+    console.error("Error fetching admin products:", err.message);
+    next(err);
+  }
+}
+
+function editProductForm(req, res, next) {
+  try {
+    const product = fetchProductById(req.params.product_id);
+    const categories = fetchAllCategories();
+    if (!product) {
+      return res.status(404).send("Product not found");
+    }
+    res.render("product-edit", { product, categories, user: req.user });
+  } catch (error) {
+    console.error("Error fetching product for edit:", error.message);
+    next(error);
+  }
+}
+
+function archiveProduct(req, res, next) {
+  const productId = req.params.product_id;
+  console.log("--- Archive Attempt ---");
+  console.log("Product ID to archive:", productId);
+  console.log("Request Parameters:", req.params);
+  console.log("Request Body:", req.body);
+  try {
+    const result = archiveExistingProduct(productId);
+    console.log("Database Result:", result);
+    res.redirect("/admin/products/list");
+  } catch (error) {
+    console.error("Error archiving product:", error);
+    next(error);
+  }
+}
+
+function editProductForm(req, res, next) {
+  try {
+    const product_id = req.params.product_id;
+    const product = model.getProductById(product_id);
+    const categories = model.getAllCategories();
+    if (!product) {
+      return res.status(404).send("Product not found");
+    }
+    res.render("product-edit", { product, categories, user: req.user });
+  } catch (error) {
+    console.error("Error fetching product for edit:", error.message);
+    next(error);
+  }
+}
+
+function archiveProduct(req, res, next) {
+  const productId = req.params.product_id;
+  console.log("--- Archive Attempt ---");
+  console.log("Product ID to archive:", productId);
+  console.log("Request Parameters:", req.params);
+  console.log("Request Body:", req.body);
+  try {
+    adminModel.archiveProduct(productId);
+    res.redirect("/admin/products/list");
+  } catch (error) {
+    console.error("Error archiving product:", error);
+    next(error);
   }
 }
 
 module.exports = {
+  parseCSV,
+  parseText,
   getAllProducts,
   searchProducts,
   getProductById,
   createNew,
   deleteProduct,
-  editProduct,
+  editProduct, // <--- Notice this is 'editProduct', not 'updateProduct'
   bulkUploadProducts,
+  editProductForm,
+  archiveProduct
 };

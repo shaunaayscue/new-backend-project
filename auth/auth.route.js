@@ -1,48 +1,59 @@
-const express = require("express");
-const passport = require("passport");
+const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth.controller'); 
+const authController = require('../controllers/auth.controller');
+const passport = require('passport');
 
-router.get(
-    "/google",
-    passport.authenticate("google", {
-        keepSessionInfo: true,
-        scope: [
-            "https://www.googleapis.com/auth/plus.login",
-            "https://www.googleapis.com/auth/userinfo.email",
-        ],
-    })
-);
+router.post('/signup', authController.signup);
 
-router.get("/google/callback",
-    passport.authenticate("google", { failureRedirect: "/" }),
-    (req, res) => {
-        console.log("User authenticated:", req.user);  
-        if (req.user) {
-            return res.redirect(req.session.returnTo || '/');
-        } else {
-            return res.redirect('/auth/login');
-        }
-    });
-
-router.get("/login", (req, res) => {
-    res.render("login");
+router.get('/login', (req, res) => {
+    res.render('login'); // Ensure you're passing flash messages
 });
 
-router.get("/signup", (req, res) => {
-    res.render("signup");
-});
-
-router.get("/logout", function (req, res, next) {
-    req.logout(function (err) {
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err);
         }
-        res.redirect("/");
+        if (!user) {
+            return res.redirect('/auth/login');
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            if (user.user_type === 'admin') {
+                return res.redirect('/admin/products/bulk');
+            } else {
+                return res.redirect(req.session.returnTo || '/');
+            }
+        });
+    })(req, res, next);
+});
+
+router.get('/logout', (req, res) => {
+    req.logout(() => {
+        res.redirect('/');
     });
 });
 
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
+// Google Authentication Routes
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: '/', // Default success redirect, will be overridden for admins
+    failureRedirect: '/auth/login',
+    failureFlash: true
+}), (req, res) => {
+    // This middleware executes after successful Google authentication
+    if (req.user && req.user.user_type === 'admin') {
+        return res.redirect('/admin/products/bulk');
+    } else {
+        return res.redirect(req.session.returnTo || '/');
+    }
+});
+
+router.get('/signup', (req, res) => {
+    res.render('signup', { error: null });
+});
 
 module.exports = router;

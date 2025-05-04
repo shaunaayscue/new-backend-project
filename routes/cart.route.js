@@ -17,4 +17,6 @@ router.post("/:user_id/products/update/:product_id", ensureAuth, cartController.
 
 router.get("/orders", ensureAuth, cartController.getOrderHistory);
 
+router.post("/:user_id/abandon", ensureAuth, cartController.abandonCart);
+
 module.exports = router;

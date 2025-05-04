@@ -40,8 +40,10 @@
                           <p><strong>Total: <span id="cart-total-price">$<%= total.toFixed(2) %></span></strong></p>
                         </div>
 
-                        <button id="checkout-btn">Proceed to Checkout</button>
-
+                        <section>
+                          <button id="checkout-btn">Proceed to Checkout</button>
+                          <button id="abandon-cart-btn">Abandon Cart</button>
+                      </section>
                         <% } else { %>
                           <p>Your cart is empty.</p>
                           <% } %>

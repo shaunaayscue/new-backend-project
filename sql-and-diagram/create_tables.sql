@@ -46,7 +46,7 @@ CREATE TABLE Carts (
         )
     ),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    user_id INTEGER UNIQUE NOT NULL,
+    user_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users (user_id)
 );
 

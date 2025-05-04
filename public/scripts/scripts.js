@@ -4,12 +4,28 @@ let bookstoreListDiv;
 let messageDiv;
 let mapInitialized = false;
 
+function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOMContentLoaded fired');
     console.log('Map object in DOMContentLoaded:', map);
 
     const sortBySelect = document.getElementById('sort-by');
     const genreFilterSelect = document.getElementById('genre-filter');
+
+    // On page load, set the dropdown values based on the URL parameters
+    const initialSortBy = getQueryParam('sortBy');
+    if (sortBySelect && initialSortBy) {
+        sortBySelect.value = initialSortBy;
+    }
+
+    const initialGenre = getQueryParam('category_name');
+    if (genreFilterSelect && initialGenre && initialGenre !== 'all') {
+        genreFilterSelect.value = initialGenre;
+    }
 
     function applyFiltersAndSorting() {
         const sortByValue = sortBySelect.value;
@@ -111,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
+    const abandonCartBtn = document.getElementById('abandon-cart-btn');
     const cartContainer = document.getElementById('cart-container');
     const checkoutBtn = document.getElementById('checkout-btn');
 
@@ -202,6 +218,39 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    if (abandonCartBtn && cartContainer) {
+        abandonCartBtn.addEventListener('click', function () {
+            const userId = cartContainer.dataset.userId;
+
+            if (userId) {
+                fetch('/cart/' + userId + '/abandon', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.json().then(data => {
+                            throw new Error(data.message || 'Failed to abandon cart.');
+                        });
+                    }
+                })
+                .then(data => {
+                    alert(data.message || 'Cart abandoned successfully.');
+                    window.location.reload(); 
+                })
+                .catch(error => {
+                    console.error('Error abandoning cart:', error);
+                    alert(error.message || 'Failed to abandon cart. Please try again.');
+                });
+            } else {
+                alert('Error: Could not identify the user. Please log in.');
+            }
+        });
+    }
 
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', function () {

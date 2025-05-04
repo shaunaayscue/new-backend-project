@@ -161,6 +161,27 @@ function getOrderHistory(req, res, next) {
     }
 }
 
+function abandonCart(req, res, next) {
+    const userId = parseInt(req.params.user_id, 10);
+
+    if (!Number.isInteger(userId)) {
+        return res.status(400).json({ error: 'Invalid user ID.' });
+    }
+
+    try {
+        const result = cartModel.abandonCart(userId);
+        if (result.success) {
+            res.status(200).json({ message: 'Cart abandoned successfully.' });
+        } else {
+            res.status(404).json({ message: 'No active cart found for this user.' });
+        }
+    } catch (error) {
+        console.error('Error abandoning cart:', error);
+        res.status(500).json({ error: 'Failed to abandon cart.' });
+        next(error);
+    }
+}
+
 module.exports = {
     addToCart,
     removeFromCart,
@@ -168,4 +189,5 @@ module.exports = {
     viewCart,
     updateCartItemQuantity,
     getOrderHistory,
+    abandonCart,
 };

@@ -12,15 +12,15 @@
                 </form>
             </div>
             <div id="sort-filter-container">
-                <div id="sorting-options">
-                    <label for="sort-by">Sort By:</label>
-                    <select id="sort-by">
-                        <option value="name-asc">Name (A-Z)</option>
-                        <option value="name-desc">Name (Z-A)</option>
-                        <option value="price-asc">Price (Low to High)</option>
-                        <option value="price-desc">Price (High to Low)</option>
-                    </select>
-                </div>
+    <div id="sorting-options">
+        <label for="sort-by">Sort By:</label>
+        <select id="sort-by">
+            <option value="name-asc" <%= locals.sortBy === 'name-asc' ? 'selected' : '' %>>Name (A-Z)</option>
+            <option value="name-desc" <%= locals.sortBy === 'name-desc' ? 'selected' : '' %>>Name (Z-A)</option>
+            <option value="price-asc" <%= locals.sortBy === 'price-asc' ? 'selected' : '' %>>Price (Low to High)</option>
+            <option value="price-desc" <%= locals.sortBy === 'price-desc' ? 'selected' : '' %>>Price (High to Low)</option>
+        </select>
+    </div>
 
                 <div id="filter">
                     <label for="genre-filter">Filter by Genre:</label>

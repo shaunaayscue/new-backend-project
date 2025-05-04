@@ -145,6 +145,16 @@ function getOrdersByUserId(userId) {
     }
 }
 
+function abandonCart(userId) {
+    try {
+        const result = db.run("UPDATE Carts SET cart_status = 'abandoned' WHERE user_id = ? AND cart_status = 'new';", [userId]);
+        return { success: result.changes > 0 };
+    } catch (error) {
+        console.error('Error abandoning cart in database:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     addToCart,
     removeFromCart,
@@ -154,4 +164,5 @@ module.exports = {
     createOrder,
     addOrderItem,
     getOrdersByUserId,
+    abandonCart,
 };

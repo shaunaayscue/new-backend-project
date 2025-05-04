@@ -26,7 +26,7 @@ function editProduct(params) {
         "UPDATE Products " +
         "SET product_name = ?, description = ?, image_url = ?, price = ?, isbn = ?, " +
         "author = ?, category_id = ?, pages = ?, publisher = ?, " +
-        "featured = ?, trending = ?, new_release = ? " +
+        "featured = ?, trending = ?, new_release = ?, is_archived = ? " +
         "WHERE product_id = ?;";
     const info = db.run(sql, params);
     return info;
