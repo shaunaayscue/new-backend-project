@@ -1,0 +1,208 @@
+<%- include('./partials/head-nav') %>
+    </header>
+
+    <main>
+        <section id="product-listing">
+            <h2>Explore Our Books</h2>
+            <div id="search-container">
+                <form action="/products" method="GET">
+                    <input type="text" id="search" name="value" placeholder="Search for your next read...">
+                    <button type="submit" id="search-btn">Go</button>
+                    <input type="hidden" name="attribute" value="product_name">
+                </form>
+            </div>
+            <div id="sort-filter-container">
+                <div id="sorting-options">
+                    <label for="sort-by">Sort By:</label>
+                    <select id="sort-by">
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="price-asc">Price (Low to High)</option>
+                        <option value="price-desc">Price (High to Low)</option>
+                    </select>
+                </div>
+
+                <div id="filter">
+                    <label for="genre-filter">Filter by Genre:</label>
+                    <select id="genre-filter" name="genre">
+                        <option value="all" <%=selectedCategory==='all' ? 'selected' : '' %>>All Genres</option>
+                        <option value="fiction" <%=selectedCategory==='fiction' ? 'selected' : '' %>>Fiction</option>
+                        <option value="non-fiction" <%=selectedCategory==='non-fiction' ? 'selected' : '' %>>Non-Fiction
+                        </option>
+                        <option value="romance" <%=selectedCategory==='romance' ? 'selected' : '' %>>Romance</option>
+                        <option value="mystery/thriller" <%=selectedCategory==='mystery/thriller' ? 'selected' : '' %>
+                            >Mystery/Thriller</option>
+                        <option value="fantasy" <%=selectedCategory==='fantasy' ? 'selected' : '' %>>Fantasy</option>
+                    </select>
+                </div>
+            </div>
+
+            <section class="category-section" id="search-results">
+
+                <div class="scroll-container">
+                    <div class="product-grid" id="search-results-grid">
+                        <% if (searchResults && searchResults.length> 0) { %>
+                            <% searchResults.forEach(function(product) { %>
+                                <article class="product-item">
+                                    <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
+                                    <h3>
+                                        <%= product.product_name %>
+                                    </h3>
+                                    <p>by <%= product.author %>
+                                    </p>
+                                    <p class="price">$<%= product.price %>
+                                    </p>
+                                    <a href="/products/<%= product.product_id %>">View Details</a>
+                                </article>
+                                <% }); %>
+                                    <% } else if (searchPerformed) { %>
+                                        <p>No books found matching your search criteria.</p>
+                                        <% } else { %>
+                                            <% } %>
+                    </div>
+                </div>
+            </section>
+
+            <% if (!searchPerformed) { %>
+                <section class="category-section" id="fiction">
+                    <h3>Fiction</h3>
+                    <div class="scroll-container">
+                        <div class="product-grid">
+                            <% if (products && products.filter(product=> product.category_name === "Fiction").length >
+                                0) { %>
+                                <% products.filter(product=> product.category_name ===
+                                    "Fiction").forEach(function(product) { %>
+                                    <article class="product-item">
+                                        <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
+                                        <h3>
+                                            <%= product.product_name %>
+                                        </h3>
+                                        <p>by <%= product.author %>
+                                        </p>
+                                        <p class="price">$<%= product.price %>
+                                        </p>
+                                        <a href="/products/<%= product.product_id %>">View Details</a>
+                                    </article>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No fiction books available.</p>
+                                            <% } %>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="category-section" id="non-fiction">
+                    <h3>Non-Fiction</h3>
+                    <div class="scroll-container">
+                        <div class="product-grid">
+                            <% if (products && products.filter(product=> product.category_name === "Non-Fiction").length
+                                > 0) { %>
+                                <% products.filter(product=> product.category_name ===
+                                    "Non-Fiction").forEach(function(product) { %>
+                                    <article class="product-item">
+                                        <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
+                                        <h3>
+                                            <%= product.product_name %>
+                                        </h3>
+                                        <p>by <%= product.author %>
+                                        </p>
+                                        <p class="price">$<%= product.price %>
+                                        </p>
+                                        <a href="/products/<%= product.product_id %>">View Details</a>
+                                    </article>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No non-fiction books available.</p>
+                                            <% } %>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="category-section" id="romance">
+                    <h3>Romance</h3>
+                    <div class="scroll-container">
+                        <div class="product-grid">
+                            <% if (products && products.filter(product=> product.category_name === "Romance").length >
+                                0) { %>
+                                <% products.filter(product=> product.category_name ===
+                                    "Romance").forEach(function(product) { %>
+                                    <article class="product-item">
+                                        <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
+                                        <h3>
+                                            <%= product.product_name %>
+                                        </h3>
+                                        <p>by <%= product.author %>
+                                        </p>
+                                        <p class="price">$<%= product.price %>
+                                        </p>
+                                        <a href="/products/<%= product.product_id %>">View Details</a>
+                                    </article>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No romance books available.</p>
+                                            <% } %>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="category-section" id="mystery-thriller">
+                    <h3>Mystery/Thriller</h3>
+                    <div class="scroll-container">
+                        <div class="product-grid">
+                            <% if (products && products.filter(product=> product.category_name ===
+                                "Mystery/Thriller").length > 0) { %>
+                                <% products.filter(product=> product.category_name ===
+                                    "Mystery/Thriller").forEach(function(product) { %>
+                                    <article class="product-item">
+                                        <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
+                                        <h3>
+                                            <%= product.product_name %>
+                                        </h3>
+                                        <p>by <%= product.author %>
+                                        </p>
+                                        <p class="price">$<%= product.price %>
+                                        </p>
+                                        <a href="/products/<%= product.product_id %>">View Details</a>
+                                    </article>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No mystery/thriller books available.</p>
+                                            <% } %>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="category-section" id="fantasy">
+                    <h3>Fantasy</h3>
+                    <div class="scroll-container">
+                        <div class="product-grid">
+                            <% if (products && products.filter(product=> product.category_name === "Fantasy").length >
+                                0) { %>
+                                <% products.filter(product=> product.category_name ===
+                                    "Fantasy").forEach(function(product) { %>
+                                    <article class="product-item">
+                                        <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
+                                        <h3>
+                                            <%= product.product_name %>
+                                        </h3>
+                                        <p>by <%= product.author %>
+                                        </p>
+                                        <p class="price">$<%= product.price %>
+                                        </p>
+                                        <a href="/products/<%= product.product_id %>">View Details</a>
+                                    </article>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No fantasy books available.</p>
+                                            <% } %>
+                        </div>
+                    </div>
+                </section>
+                <% } %>
+        </section>
+    </main>
+
+    <%- include('./partials/footer') %>
+        </body>
+
+        </html>

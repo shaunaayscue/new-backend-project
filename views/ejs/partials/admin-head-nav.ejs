@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Bulk Upload - The Book Haven</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <script src="/scripts/admin-scripts.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div id="logo-container">
+                <a href="/">
+                    <img src="/images/logo.jpg" alt="Book Haven Logo" id="logo-img">
+                </a>
+                <div id="text-container">
+                    <a href="/" id="site-title">The Book Haven</a>
+                    <span id="tagline">Admin Page</span>
+                </div>
+            </div>
+            <div id="nav-right">
+                <ul>
+                    <div id="dropdown">
+                        <a href="#" id="dropbtn">Admin Account</a>
+                        <div id="dropdown-content">
+                            <% if (typeof user !=='undefined' && user.user_email && user.user_email[0]) { %>
+                                <a href="/auth/logout">Admin Logout</a>
+                                <% } %>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+
+        <nav id="genres">
+            <ul>
+                <li><a href="/admin/products/bulk">Bulk Upload</a></li>
+                <li><a href="/admin/products/list">Product List</a></li>
+            </ul>
+        </nav>

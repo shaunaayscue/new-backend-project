@@ -2,30 +2,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-header {
-    background-color: white;
-    padding: 10px 0;
-}
-
-footer {
-    background-color: #c3c5d3;
-    padding: 15px 0;
-    text-align: center;
-    color: #333;
-    font-size: 16px;
-}
-
-nav {
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 10px 20px;
-    color: rgb(56, 81, 117);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 h2 {
     font-size: 28px;
     text-align: center;
@@ -44,38 +20,20 @@ ul li {
     color: #555;
 }
 
-footer p {
-    margin: 0;
-}
-
 ul {
     list-style-type: none;
     margin: 20px 0;
     padding: 0;
 }
 
-header a {
-    font-size: 36px;
-    font-weight: 700;
-    color: rgb(56, 81, 117);
-    text-decoration: none;
-}
-
-nav li a {
-    color: rgb(56, 81, 117);
-    font-size: 18px;
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-
-button {
+button,
+#button-link {
     cursor: pointer;
     background-color: rgb(56, 81, 117);
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
 }
 
@@ -120,30 +78,92 @@ textarea {
 
 input[type="text"],
 input[type="number"] {
-    max-width: 260px;
+    max-width: 340px;
 }
 
-.button-link {
-    display: inline-block;
-    background-color: rgb(56, 81, 117);
-    color: white;
-    padding: 10px 20px;
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header {
+    background-color: white;
+    padding: 10px 0;
+}
+
+header a {
+    font-size: 36px;
+    font-weight: 700;
+    color: rgb(56, 81, 117);
+}
+
+footer {
+    background-color: #c3c5d3;
+    padding: 15px 0;
     text-align: center;
-    border-radius: 5px;
+    color: #333;
     font-size: 16px;
+}
+
+footer p {
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    color: rgb(56, 81, 117);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav li a {
+    color: rgb(56, 81, 117);
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.format-example {
+    flex: 1 1 30%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#button-link {
+    display: inline-block;
+    text-align: center;
     text-decoration: none;
     margin-right: 10px;
 }
 
-.delete-button {
-    background-color: #e74c3c;
+#delete-product-button {
+    background-color: #e53e3e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.archive-button {
+#delete-product-button:hover {
+    background-color: #c53030;
+}
+
+#archive-button {
     background-color: #f39c12;
 }
 
-.description-box {
+#description-box {
     max-width: 100%;
     max-height: 170px;
     overflow-y: auto;
@@ -152,21 +172,10 @@ input[type="number"] {
     white-space: normal;
 }
 
-.action-button a,
-.action-button button {
+#action-button a,
+#action-button button {
     display: block;
     margin: 10px auto;
-}
-
-.format-example {
-    flex: 1 1 30%; 
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-    max-height: 400px; 
-    overflow-y: auto; 
 }
 
 #flex-container {
@@ -174,8 +183,8 @@ input[type="number"] {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
-    max-width: 1200px; 
-    margin: 0 auto; 
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -229,6 +238,10 @@ input[type="number"] {
 #nav-right ul {
     display: flex;
     gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
 #nav-right ul li,
@@ -237,70 +250,15 @@ input[type="number"] {
 }
 
 #nav-right a {
-    text-decoration: none;
     color: rgb(56, 81, 117);
     padding: 12px 25px;
     font-size: 16px;
     font-weight: bold;
 }
 
-#dropdown {
-    position: relative;
-}
-
-#dropbtn {
+#nav-right a:hover {
+    background-color: rgb(56, 81, 117);
     color: #fff;
-    padding: 10px 20px;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid black;
-    min-width: 160px;
-    border-radius: 5px;
-    top: 100%;
-    right: 0;
-}
-
-#dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-}
-
-#dropdown:hover #dropdown-content {
-    display: block;
-}
-
-#search-container {
-    display: flex;
-    padding: 20px 40px;
-}
-
-#search-container input {
-    padding: 10px 30px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #797474;
-}
-
-#search-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #c3c5d3;
-    color: #333;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10px;
 }
 
 #genres {
@@ -322,7 +280,6 @@ input[type="number"] {
 }
 
 #genres a {
-    text-decoration: none;
     color: #fff;
     font-size: 17px;
     padding: 10px 15px;
@@ -405,41 +362,8 @@ input[type="number"] {
     margin-bottom: 20px;
 }
 
-#sort-filter-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-#sorting-options,
-#filter {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#sorting-options select,
-#filter select {
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 180px;
-}
-
-#nav-right a:hover {
-    background-color: rgb(56, 81, 117);
-    color: #fff;
-}
-
 #splash a:hover {
     background-color: #c3c5d3;
-}
-
-#dropdown-content a:hover {
-    background-color: rgb(56, 81, 117);
 }
 
 #category {
@@ -476,7 +400,7 @@ input[type="number"] {
 }
 
 #product-table th {
-    background-color: #3a567e;
+    background-color: rgb(56, 81, 117);
     color: white;
 }
 
@@ -490,4 +414,48 @@ input[type="number"] {
 
 #create-product {
     max-width: 600px;
+}
+
+#file-upload-btn {
+    margin-top: 15px;
+}
+
+#dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#dropbtn {
+    background-color: white;
+    color: rgb(56, 81, 117);
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    text-decoration: none;
+}
+
+#dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    right: 0;
+}
+
+#dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    display: block;
+}
+
+#dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+#dropdown:hover #dropdown-content {
+    display: block;
 }

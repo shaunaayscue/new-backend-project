@@ -1,0 +1,142 @@
+<%- include('./partials/admin-head-nav') %>
+    </header>
+
+    <main>
+        <section>
+            <h2>Bulk Upload Products</h2>
+            <p>Use this page to upload multiple product data into the application database.</p>
+            <p>We currently accept files in <strong>JSON</strong>, <strong>CSV</strong>, and <strong>Text</strong>
+                formats.</p>
+
+            <form action="/admin/products/bulk" method="POST" enctype="multipart/form-data">
+                <div>
+                    <label for="file-upload">Select a file to upload:</label>
+                    <input type="file" id="file-upload" name="product-file" accept=".json, .csv, .txt" required>
+                </div>
+                <div>
+                    <button id="file-upload-btn" type="submit">Upload File</button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h3>Accepted File Formats</h3>
+            <p><strong>JSON:</strong> Product data formatted as a structured JSON array.
+            </p>
+            <p> <strong>CSV:</strong> Comma-separated values file where each row represents a product.
+            </p>
+            <p> <strong>TEXT:</strong> Key-value structured plain text file where each attribute is listed on a new
+                line.</p>
+            <div id="flex-container">
+                <div class="format-example">
+                    <h4>JSON Example</h4>
+                    <pre>
+[
+  {
+    "product_name": "The Hitchhiker's Guide to the Galaxy",
+    "description": "A comedic science fiction series...",
+    "image_url": "../images/hitchhikers-guide.jpg",
+    "price": 9.99,
+    "isbn": "9780345391803",
+    "author": "Douglas Adams",
+    "category_id": 5,
+    "pages": 224,
+    "publisher": "Del Rey Books",
+    "featured": 1,
+    "trending": 1,
+    "new_release": 0
+  },
+  {
+    "product_name": "Pride and Prejudice",
+    "description": "A novel of manners by Jane Austen...",
+    "image_url": "../images/pride-prejudice.jpg",
+    "price": 7.50,
+    "isbn": "9780141439518",
+    "author": "Jane Austen",
+    "category_id": 3,
+    "pages": 432,
+    "publisher": "Penguin Classics",
+    "featured": 0,
+    "trending": 0,
+    "new_release": 0
+  }
+]
+                    </pre>
+                </div>
+
+                <div class="format-example">
+                    <h4>CSV Example</h4>
+                    <pre>
+product_name,description,image_url,price,isbn,author,category_id,pages,publisher,featured,trending,new_release
+The Lord of the Rings,The epic high-fantasy novel...,../images/lord-rings.jpg,25.00,9780618260274,J.R.R. Tolkien,5,1216,Houghton Mifflin,1,1,0
+To Kill a Mockingbird,A classic American novel...,../images/to-kill-mockingbird.jpg,12.99,9780061120084,Harper Lee,3,281,Harper Perennial,1,0,0
+                    </pre>
+                </div>
+
+                <div class="format-example">
+                    <h4>Text Example</h4>
+                    <pre>
+product_name: 1984
+description: A dystopian novel by George Orwell...
+image_url: ../images/1984.jpg
+price: 11.00
+isbn: 9780451524935
+author: George Orwell
+category_id: 5
+pages: 328
+publisher: Signet Classics
+featured: 0
+trending: 1
+new_release: 0
+
+product_name: Little Women
+description: A coming-of-age novel by Louisa May Alcott...
+image_url: ../images/little-women.jpg
+price: 8.75
+isbn: 9780141439556
+author: Louisa May Alcott
+category_id: 3
+pages: 448
+publisher: Puffin Classics
+featured: 0
+trending: 0
+new_release: 0
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>Important Instructions</h3>
+            <ul>
+                <li><strong>JSON Files</strong>: Should contain a single JSON array, with each product as a JSON object.
+                    Each object must have the following keys: <code>product_name</code>, <code>description</code>,
+                    <code>image_url</code>, <code>price</code>, <code>isbn</code>, <code>author</code>,
+                    <code>category_id</code>, <code>pages</code>, <code>publisher</code>, <code>featured</code> (0 or
+                    1), <code>trending</code> (0 or 1), and <code>new_release</code> (0 or 1).
+                </li>
+                <li><strong>CSV Files</strong>: First row must be headers with the exact field names (case-sensitive):
+                    <code>product_name</code>, <code>description</code>, <code>image_url</code>, <code>price</code>,
+                    <code>isbn</code>, <code>author</code>, <code>category_id</code>, <code>pages</code>,
+                    <code>publisher</code>, <code>featured</code>, <code>trending</code>, <code>new_release</code>.
+                    Subsequent rows must have product data separated by commas.
+                </li>
+                <li><strong>Text Files</strong>: Each product's data should be separated by a blank line. Each field
+                    must be in the format: <code>attribute_name: attribute_value</code> (e.g.,
+                    <code>product_name: The Great Gatsby</code>). Attribute names must match the JSON keys exactly.
+                </li>
+                <li>Ensure the <code>category_id</code> matches an existing category in your database.</li>
+                <li><code>price</code> and <code>pages</code> must be numeric values.</li>
+                <li><code>featured</code>, <code>trending</code>, and <code>new_release</code> should be either
+                    <code>0</code> or <code>1</code>.
+                </li>
+                <li>Double-check your file format before uploading to avoid errors.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <%- include('./partials/footer') %>
+        </body>
+
+        </html>

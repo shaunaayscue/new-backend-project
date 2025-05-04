@@ -1,0 +1,108 @@
+<%- include('./partials/head-nav') %>
+    </header>
+
+    <main>
+
+        <p><a href="/admin/products/bulk"><strong>Admin Pages (for testing/grading purposes only)</strong></a></p>
+
+        <div id="search-container">
+            <form action="/products" method="GET">
+                <input type="text" id="search" name="value" placeholder="Search for your next read...">
+                <button type="submit" id="search-btn">Go</button>
+                <input type="hidden" name="attribute" value="product_name">
+            </form>
+        </div>
+        <section id="splash">
+            <h3>Discover trending titles, timeless classics, and books you'll love—all in one place.</h3>
+            <p><strong>Ready to find your next great read?</strong> <a href="/signup">Sign Up Now</a> </p>
+        </section>
+
+        <section id="featured-books">
+            <h2>Featured Books</h2>
+            <div class="product-grid">
+                <% if (featuredBooks && featuredBooks.length> 0) { %>
+                    <% featuredBooks.forEach(book=> { %> <!-- Limits to 4 books -->
+                        <article class="product">
+                            <a href="/products/<%= book.product_id %>">
+                                <img src="<%= book.image_url %>" alt="<%= book.product_name %>">
+                                <div class="product-title">
+                                    <h3>
+                                        <%= book.product_name %>
+                                    </h3>
+                                </div>
+                            </a>
+                            <p>
+                                <%= book.author %>
+                            </p>
+                        </article>
+                        <% }) %>
+                            <% } else { %>
+                                <p>No featured books available.</p>
+                                <% } %>
+            </div>
+        </section>
+
+        <section id="new-releases">
+            <h2>New Releases</h2>
+            <div class="product-grid">
+                <% if (newReleases && newReleases.length> 0) { %>
+                    <% newReleases.forEach(book=> { %> <!-- Limits to 4 books -->
+                        <article class="product">
+                            <a href="/products/<%= book.product_id %>">
+                                <img src="<%= book.image_url %>" alt="<%= book.product_name %>">
+                                <div class="product-title">
+                                    <h3>
+                                        <%= book.product_name %>
+                                    </h3>
+                                </div>
+                            </a>
+                            <p>
+                                <%= book.author %>
+                            </p>
+                        </article>
+                        <% }) %>
+                            <% } else { %>
+                                <p>No new releases available.</p>
+                                <% } %>
+            </div>
+        </section>
+
+        <section id="trending-books">
+            <h2>Trending Books</h2>
+            <div class="product-grid">
+                <% if (trendingBooks && trendingBooks.length> 0) { %>
+                    <% trendingBooks.forEach(book=> { %> <!-- Limits to 4 books -->
+                        <article class="product">
+                            <a href="/products/<%= book.product_id %>">
+                                <img src="<%= book.image_url %>" alt="<%= book.product_name %>">
+                                <div class="product-title">
+                                    <h3>
+                                        <%= book.product_name %>
+                                    </h3>
+                                </div>
+                            </a>
+                            <p>
+                                <%= book.author %>
+                            </p>
+                        </article>
+                        <% }) %>
+                            <% } else { %>
+                                <p>No trending books available.</p>
+                                <% } %>
+            </div>
+        </section>
+
+
+        <section id="nearby-bookstores">
+            <h2>Find a Bookstore Near You</h2>
+            <button id="find-bookstores-btn">Find Bookstores</button>
+            <div id="message-container"></div>
+            <div id="map-container" style="height: 400px; width: 100%;"></div>
+            <div id="bookstore-list"></div>
+        </section>
+    </main>
+
+    <%- include('./partials/footer') %>
+        </body>
+
+        </html>

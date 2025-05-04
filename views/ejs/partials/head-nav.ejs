@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  Name: Shauna Ayscue
+  Date: 02.07.2025
+  CSC 372-01
+
+  This is the index.html page for the Book Haven website. It includes book categories
+  for featured books, trending books, and newest releases.
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Book Haven</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="/scripts/scripts.js" defer></script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfdXbZatYKJB74uHTVFBCnLC0_JbRS2fs&callback=initMap"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div id="logo-container">
+                <a href="/">
+                    <img src="../images/logo.jpg" alt="Book Haven Logo" id="logo-img">
+                </a>
+                <div id="text-container">
+                    <a href="/" id="site-title">The Book Haven</a>
+                    <span id="tagline">Your next great adventure is just a page away!</span>
+                </div>
+            </div>
+            <div id="nav-right">
+                <ul>
+                    <li id="cart-view"><a href="/products/cart">Cart</a></li>
+                    <li>
+                        <div id="dropdown">
+                            <a href="#" id="dropbtn">Account</a>
+                            <div id="dropdown-content">
+                                <% if (typeof user !=='undefined' && user.user_email && user.user_email[0]) { %>
+                                    <a href="/auth/logout"> Logout</a>
+                                    <% } else { %>
+                                        <a href="/auth/google">Login with Google</a>
+                                        <a href="/auth/login">Login</a>
+                                        <% } %>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav id="genres">
+            <ul>
+                <li><a href="/products/all">SEE ALL BOOKS</a></li>
+                <li><a href="/products?category_name=fiction">FICTION</a></li>
+                <li><a href="/products?category_name=non-fiction">NON-FICTION</a></li>
+                <li><a href="/products?category_name=romance">ROMANCE</a></li>
+                <li><a href="/products?category_name=mystery/thriller">MYSTERY/THRILLER</a></li>
+                <li><a href="/products?category_name=fantasy">FANTASY</a></li>
+            </ul>
+        </nav>
+        <div id="book-banner">
+            <img src="../images/banner.jpg" alt="Book Banner" id="banner-img">
+        </div>

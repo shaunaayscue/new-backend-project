@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../styles/auth.css">
+    <script src="../scripts/sign-scripts.js" defer></script>
+</head>
+
+<body>
+    <h1>Signup</h1>
+    <form action="/auth/signup" method="POST">
+        Name: <input type="text" name="name" required><br>
+        Email: <input type="email" name="email" required><br>
+        Password: <input type="password" name="password" required><br>
+        Type:
+        <select name="user_type" required>
+            <option value="shopper">Shopper</option>
+            <option value="admin">Admin</option>
+        </select><br>
+        <button type="submit">Signup</button>
+    </form>
+
+    <p>Back to home page. <a href="/">Home</a></p>
+</body>
+
+</html>

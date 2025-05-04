@@ -1,0 +1,54 @@
+<%- include('./partials/head-nav') %>
+  </header>
+
+  <main>
+    <div id="cart-container" data-user-id="<%= user ? user.user_id : null %>">
+      <h2>Your Shopping Cart</h2>
+      <% if (cart && cart.length> 0) { %>
+        <% let subtotal=0; %>
+          <% cart.forEach(item=> { %>
+            <div class="cart-item">
+              <img src="<%= item.image_url %>" alt="<%= item.product_name %>">
+              <div class="cart-item-info">
+                <h3>
+                  <%= item.product_name %>
+                </h3>
+                <p>by <%= item.author %>
+                </p>
+                <p class="price">$<%= item.price.toFixed(2) %>
+                </p>
+              </div>
+              <input type="number" class="cart-quantity" value="<%= item.quantity %>" min="1" title="Enter the quantity"
+                placeholder="<%= item.quantity %>" data-product-id="<%= item.product_id %>">
+
+              <p class="item-total">Total: $<%= (item.price * item.quantity).toFixed(2) %>
+              </p>
+              <button class="cart-remove-btn" id="<%= item.product_id %>">Remove</button>
+            </div>
+            <% subtotal +=item.price * item.quantity; %>
+              <% }); %>
+
+                <% const taxRate=0.0675; %>
+                  <% const tax=subtotal * taxRate; %>
+                    <% const deliveryFee=subtotal> 0 ? 3.00 : 0.00; %>
+                      <% const total=subtotal + tax + deliveryFee; %>
+
+                        <div id="cart-summary">
+                          <p>Subtotal: <span id="subtotal-price">$<%= subtotal.toFixed(2) %></span></p>
+                          <p>Tax (6.75%): <span id="tax-price">$<%= tax.toFixed(2) %></span></p>
+                          <p>Delivery Fee: <span id="delivery-fee">$<%= deliveryFee.toFixed(2) %></span></p>
+                          <p><strong>Total: <span id="cart-total-price">$<%= total.toFixed(2) %></span></strong></p>
+                        </div>
+
+                        <button id="checkout-btn">Proceed to Checkout</button>
+
+                        <% } else { %>
+                          <p>Your cart is empty.</p>
+                          <% } %>
+    </div>
+  </main>
+
+  <%- include('./partials/footer') %>
+    </body>
+
+    </html>

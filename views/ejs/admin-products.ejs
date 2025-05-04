@@ -1,0 +1,172 @@
+<%- include('./partials/admin-head-nav') %> <!-- Including a partial for header and navigation -->
+
+    </header>
+
+    <main>
+        <h2>Admin Product Listing</h2>
+        <section id="create-product">
+            <h3>Create New Product</h3>
+            <form action="/admin/products/add" method="POST">
+                <fieldset>
+                    <legend>Product Information</legend>
+
+                    <label for="product-id">Product ID:</label>
+                    <input type="text" id="product-id" name="product_id" placeholder="(Not editable)" readonly>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="product_name" placeholder="Enter product name" required>
+
+                    <label for="image">Image Path:</label>
+                    <input type="text" id="image" name="image_url" placeholder="e.g., ../images/product.jpg" required>
+
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" step="0.01" min="0"
+                        placeholder="Enter price (e.g., 19.99)" required>
+
+                    <label for="isbn">ISBN:</label>
+                    <input type="text" id="isbn" name="isbn" placeholder="Enter ISBN" required>
+
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" placeholder="Enter author name" required>
+
+                    <label for="category">Category Name:</label>
+                    <select id="category" name="category_id" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <% categories.forEach(category=> { %> <!-- Loop through categories -->
+                            <option value="<%= category.category_id %>">
+                                <%= category.category_name %> <!-- Display category name -->
+                            </option>
+                            <% }) %>
+                    </select>
+
+                    <label for="pages">Pages:</label>
+                    <input type="number" id="pages" name="pages" placeholder="Enter page number" required>
+
+                    <label for="publisher">Publisher:</label>
+                    <input type="text" id="publisher" name="publisher" placeholder="Enter publisher name" required>
+
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter product description"
+                        required></textarea>
+
+                    <label for="featured">Featured:</label>
+                    <input type="checkbox" id="featured" name="featured" value="1">
+
+                    <label for="trending">Trending:</label>
+                    <input type="checkbox" id="trending" name="trending" value="1">
+
+                    <label for="new_release">New Release:</label>
+                    <input type="checkbox" id="new_release" name="new_release" value="1">
+
+                    <label for="is_archived">Archive?</label>
+                    <input type="checkbox" id="is_archived" name="is_archived" value="1">
+
+                    <div>
+                        <button type="submit">Create New Product</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+        <section>
+            <div id="search-container">
+                <form action="/admin/products/list" method="GET">
+                    <input type="text" name="searchTerm" value="<%= searchTerm %>"
+                        placeholder="Search by Product Name or by Category">
+                    <button type="submit">Search</button>
+                </form>
+
+            </div>
+
+        </section>
+
+        <section>
+            <h3>Product List</h3>
+            <div id="product-table-container">
+                <table id="product-table">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Image Path</th>
+                            <th>Price</th>
+                            <th>ISBN</th>
+                            <th>Author</th>
+                            <th>Category Name</th>
+                            <th>Pages</th>
+                            <th>Publisher</th>
+                            <th>Description</th>
+                            <th>Featured</th>
+                            <th>Trending</th>
+                            <th>New Release</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% products.forEach(product=> { %>
+                            <tr class="<%= product.is_archived === 1 ? 'archived-product' : '' %>">
+                                <td>
+                                    <%= product.product_id %>
+                                </td>
+                                <td>
+                                    <%= product.product_name %>
+                                </td>
+                                <td>
+                                    <%= product.image_url %>
+                                </td>
+                                <td>$<%= product.price %>
+                                </td>
+                                <td>
+                                    <%= product.isbn %>
+                                </td>
+                                <td>
+                                    <%= product.author %>
+                                </td>
+                                <td>
+                                    <%= product.category_name %>
+                                </td>
+                                <td>
+                                    <%= product.pages %>
+                                </td>
+                                <td>
+                                    <%= product.publisher %>
+                                </td>
+                                <td>
+                                    <div id="description-box">
+                                        <%= product.description %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <%= product.featured %>
+                                </td>
+                                <td>
+                                    <%= product.trending %>
+                                </td>
+                                <td>
+                                    <%= product.new_release %>
+                                </td>
+
+                                <td id="action-button">
+                                    <a href="/admin/products/edit/<%= product.product_id %>" id="button-link">Edit</a>
+                                    <a href="/admin/products/delete/<%= product.product_id %>"
+                                        id="delete-product-button">Delete</a>
+                                    <form action="/admin/products/archive/<%= product.product_id %>?_method=POST"
+                                        method="POST">
+                                        <button id="archive-button" type="submit">
+                                            <%= product.is_archived===1 ? 'Unarchive' : 'Archive' %>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./partials/footer') %>
+    </body>
+
+    </html>

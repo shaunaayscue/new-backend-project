@@ -5,15 +5,15 @@ const path = require("path");
 const db = new sqlite(path.join(__dirname, "../.data", "bookstore.db"));
 
 function all(sql, ...params) {
-    return db.prepare(sql).all(...params); // Corrected
+    return db.prepare(sql).all(...params); 
 }
 
 function get(sql, ...params) {
-    return db.prepare(sql).get(...params); // Corrected
+    return db.prepare(sql).get(...params);
 }
 
 function run(sql, ...params) {
-    return db.prepare(sql).run(...params); // Corrected
+    return db.prepare(sql).run(...params); 
 }
 
 function exec(sql) {

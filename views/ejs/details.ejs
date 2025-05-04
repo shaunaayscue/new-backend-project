@@ -1,0 +1,44 @@
+<%- include('./partials/head-nav') %>
+  </header>
+
+  <main>
+    <div id="product-container">
+      <div id="product-images">
+        <img src="/<%= product.image_url %>" alt="Front Cover of <%= product.name %>">
+      </div>
+
+      <article id="product-info">
+        <h1>
+          <%= product.product_name %>
+        </h1>
+        <p>
+          <%= product.description %>
+        </p>
+        <p>Price: <span id="price">$<%= product.price %></span></p>
+        <ul>
+          <li><strong>ISBN:</strong>
+            <%= product.isbn %>
+          </li>
+          <li><strong>Author:</strong>
+            <%= product.author %>
+          </li>
+          <li><strong>Genre:</strong>
+            <%= product.category_name %>
+          </li>
+          <li><strong>Pages:</strong>
+            <%= product.pages %>
+          </li>
+          <li><strong>Publisher:</strong>
+            <%= product.publisher %>
+          </li>
+        </ul>
+
+        <button id="add-to-cart-btn" data-product-id="<%= product.product_id %>">Add to Cart</button>
+      </article>
+    </div>
+  </main>
+
+  <%- include('./partials/footer') %>
+    </body>
+
+    </html>

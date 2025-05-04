@@ -1,0 +1,64 @@
+<%- include('./partials/admin-head-nav') %>
+    </header>
+
+    <main>
+        <h2>Edit Product</h2>
+        <form method="post" action="/admin/products/edit/<%= product.product_id %>">
+            <input type="hidden" name="_method" value="PUT">
+            <fieldset>
+                <legend>Product Information</legend>
+                <label for="product-id">Product ID:</label>
+                <input type="text" id="product-id" name="product_id" value="<%= product.product_id %>" readonly>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="product_name" value="<%= product.product_name %>" required>
+                <label for="image">Image Path:</label>
+                <input type="text" id="image" name="image_url" value="<%= product.image_url %>" required>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" value="<%= product.price %>" step="0.01" min="0" required>
+                <label for="isbn">ISBN:</label>
+                <input type="text" id="isbn" name="isbn" value="<%= product.isbn %>" required>
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" value="<%= product.author %>" required>
+                <label for="category">Category Name:</label>
+                <select id="category" name="category_id" required>
+                    <option value="" disabled>Select a category</option>
+                    <% categories.forEach(category=> { %>
+                        <option value="<%= category.category_id %>" <%=product.category_id===category.category_id
+                            ? 'selected' : '' %>>
+                            <%= category.category_name %>
+                        </option>
+                        <% }) %>
+                </select>
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages" value="<%= product.pages %>" required>
+                <label for="publisher">Publisher:</label>
+                <input type="text" id="publisher" name="publisher" value="<%= product.publisher %>" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"
+                    required><%= product.description.replace(/\r\n|\r|\n/g, '\n') %></textarea>
+                <label for="featured">Featured:</label>
+                <input type="checkbox" id="featured" name="featured" value="1" <%=product.featured===1 ? 'checked' : ''
+                    %>>
+
+                <label for="trending">Trending:</label>
+                <input type="checkbox" id="trending" name="trending" value="1" <%=product.trending===1 ? 'checked' : ''
+                    %>>
+
+                <label for="new_release">New Release:</label>
+                <input type="checkbox" id="new_release" name="new_release" value="1" <%=product.new_release===1
+                    ? 'checked' : '' %>>
+
+                <label for="is_archived">Archive?</label>
+                <input type="checkbox" id="is_archived" name="is_archived" value="1">
+
+                <div>
+                    <button type="submit">Save Changes</button>
+                </div>
+            </fieldset>
+        </form>
+    </main>
+
+    <%- include('./partials/footer') %>
+        </body>
+
+        </html>
