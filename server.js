@@ -59,6 +59,7 @@ app.get("/admin/products/edit/:product_id", ensureAuth, adminController.editProd
 
 app.post('/admin/products/edit/:product_id', ensureAuth, adminController.editProduct);
 
+
 app.get('/admin/products/delete/:product_id', ensureAuth, adminController.deleteProduct);
 
 app.use(methodOverride('_method'));

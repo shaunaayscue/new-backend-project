@@ -6,7 +6,7 @@ const passport = require('passport');
 router.post('/signup', authController.signup);
 
 router.get('/login', (req, res) => {
-    res.render('login'); // Ensure you're passing flash messages
+    res.render('login'); 
 });
 
 router.post('/login', (req, res, next) => {
@@ -36,15 +36,13 @@ router.get('/logout', (req, res) => {
     });
 });
 
-// Google Authentication Routes
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: '/', // Default success redirect, will be overridden for admins
+    successRedirect: '/', 
     failureRedirect: '/auth/login',
     failureFlash: true
 }), (req, res) => {
-    // This middleware executes after successful Google authentication
     if (req.user && req.user.user_type === 'admin') {
         return res.redirect('/admin/products/bulk');
     } else {

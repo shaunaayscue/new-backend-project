@@ -105,7 +105,6 @@ function viewCart(req, res, next) {
     }
 }
 
-
 function updateCartItemQuantity(req, res, next) {
     const userId = parseInt(req.params.user_id, 10);
     const productId = parseInt(req.params.product_id, 10);

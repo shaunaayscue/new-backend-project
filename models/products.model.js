@@ -31,9 +31,6 @@ function getAllProducts(sortBy) {
     return updatedProducts;
 }
 
-// Apply similar validation to other model functions that use the 'sortBy' parameter
-// (e.g., getProductsByCategory, getAllByOneAttribute, searchByAttributeAndCategory)
-
 function getAllProductsWithCategoryNames() {
     const sql = "SELECT p.*, c.category_name FROM Products p LEFT JOIN Categories c ON p.category_id = c.category_id;";
     const allProducts = db.all(sql);
@@ -90,10 +87,10 @@ function getAllCategories() {
     return categories;
 }
 
-function searchProductsByCategory(categoryName) {
-    const sql = "SELECT p.*, c.category_name FROM Products p JOIN Categories c ON p.category_id = c.category_id WHERE LOWER(c.category_name) = LOWER(?);";
-    return db.all(sql, [categoryName]);
-}
+//function searchProductsByCategory(categoryName) {
+   // const sql = "SELECT p.*, c.category_name FROM Products p JOIN Categories c ON p.category_id = c.category_id WHERE LOWER(c.category_name) = LOWER(?);";
+  //  return db.all(sql, [categoryName]);
+//}
 
 function searchProductsByName(name) {
     const sql = "SELECT p.*, c.category_name FROM Products p LEFT JOIN Categories c ON p.category_id = c.category_id WHERE LOWER(p.product_name) LIKE LOWER('%' || ? || '%') AND p.is_archived = 0;";
@@ -125,7 +122,7 @@ module.exports = {
     getAllProductsWithCategoryNames,
     getAllCategories,
     searchProductsByName,
-    searchProductsByCategory,
+   // searchProductsByCategory,
     searchProductsByNameAndCategory,
     getAdminProductsByCategory,
 };

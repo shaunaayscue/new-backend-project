@@ -1,7 +1,7 @@
 require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const LocalStrategy = require('passport-local').Strategy; // Import LocalStrategy
+const LocalStrategy = require('passport-local').Strategy; 
 const userModel = require("../models/users.model");
 
 passport.use(new GoogleStrategy({
@@ -36,7 +36,7 @@ passport.use(new LocalStrategy(
             return done(null, false, { message: 'Incorrect email or password' });
         }
 
-        if (user.user_password === password) { // **INSECURE: Plain text comparison**
+        if (user.user_password === password) { 
             console.log('Local Strategy: Password matches for user ' + email + '.');
             return done(null, user);
         } else {

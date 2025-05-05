@@ -141,12 +141,12 @@ function getAllProductsPage(req, res, next) {
     }
 }
 
-function getAllProductsOnly(req, res, next) {
+/*function getAllProductsOnly(req, res, next) {
     const sortBy = req.query.sortBy;
     const products = model.getAllProducts(sortBy);
     const categories = model.getAllCategories();
     res.render('products', { products, categories, searchResults: [], searchPerformed: false, title: ' ', selectedCategory: 'all', sortBy: sortBy || '' }); // Ensure sortBy is passed
-}
+}*/
 
 module.exports = {
     getAllProducts,
@@ -154,5 +154,5 @@ module.exports = {
     getProductById,
     getHomePage,
     getAllProductsPage,
-    getAllProductsOnly,
+   // getAllProductsOnly,
 };

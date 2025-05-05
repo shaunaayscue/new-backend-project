@@ -13,7 +13,9 @@ router.delete("/products/delete/:product_id", ensureAuth, cartController.removeF
 router.post("/:user_id/checkout", ensureAuth, cartController.checkout);
 
 // In your cart.routes.js
-router.post("/:user_id/products/update/:product_id", ensureAuth, cartController.updateCartItemQuantity);
+//router.post("/:user_id/products/update/:product_id", ensureAuth, cartController.updateCartItemQuantity);
+
+router.put("/:user_id/products/update/:product_id", ensureAuth, cartController.updateCartItemQuantity);
 
 router.get("/orders", ensureAuth, cartController.getOrderHistory);
 

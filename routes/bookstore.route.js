@@ -1,10 +1,9 @@
+"use strict";
 const express = require('express');
 const https = require('https');
 const router = express.Router();
 
-const GOOGLE_API_KEY = 'YOUR_API_KEY';
-
-console.log('Is https defined?', typeof https);
+const GOOGLE_API_KEY = 'AIzaSyBfdXbZatYKJB74uHTVFBCnLC0_JbRS2fs';
 
 router.get('/nearby-bookstores', function(req, res) {
     const lat = req.query.lat;

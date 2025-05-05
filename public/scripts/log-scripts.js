@@ -1,3 +1,5 @@
+"use strict";
+
 const form = document.getElementById('login-form');
 if(form){
   form.addEventListener('submit', (event) => {

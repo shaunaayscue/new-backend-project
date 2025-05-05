@@ -300,7 +300,7 @@ function editProductForm(req, res, next) {
   }
 }
 
-function archiveProduct(req, res, next) {
+/*function archiveProduct(req, res, next) {
   const productId = req.params.product_id;
   console.log("--- Archive Attempt ---");
   console.log("Product ID to archive:", productId);
@@ -314,7 +314,7 @@ function archiveProduct(req, res, next) {
     console.error("Error archiving product:", error);
     next(error);
   }
-}
+}*/
 
 function editProductForm(req, res, next) {
   try {
@@ -354,8 +354,8 @@ module.exports = {
   getProductById,
   createNew,
   deleteProduct,
-  editProduct, // <--- Notice this is 'editProduct', not 'updateProduct'
+  editProduct, 
   bulkUploadProducts,
   editProductForm,
-  archiveProduct
+  archiveProduct,
 };
