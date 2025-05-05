@@ -57,4 +57,4 @@ Places API
 - Under Application restrictions click 'None'
 - Under API restrictions click 'Restrict key' and choose 'Maps JavaScript' and 'Places API'
 
-- In the code provided, replace 'YOUR_API_KEY' with the API key google gave you.
+- In the code provided, replace 'YOUR_API_KEY' in your Node.js code with your actual API key
