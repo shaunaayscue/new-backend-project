@@ -648,4 +648,7 @@ text-align: center;
     display: block;
 }
 
-
+#map-container {
+    height: 400px; 
+    width: 100%;
+} 

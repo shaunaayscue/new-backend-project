@@ -26,8 +26,7 @@ ul {
     padding: 0;
 }
 
-button,
-#button-link {
+button {
     cursor: pointer;
     background-color: rgb(56, 81, 117);
     color: white;
@@ -458,4 +457,14 @@ nav li a {
 
 #dropdown:hover #dropdown-content {
     display: block;
+}
+
+#button-link {
+    cursor: pointer;
+    background-color: rgb(56, 81, 117);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
 }

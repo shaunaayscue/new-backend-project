@@ -4,6 +4,11 @@ let bookstoreListDiv;
 let messageDiv;
 let mapInitialized = false;
 
+/**
+ * Retrieves a query parameter from the current URL.
+ * @param {string} name - The name of the query parameter to retrieve.
+ * @returns {string|null} The value of the query parameter, or null if not found.
+ */
 function getQueryParam(name) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(name);
@@ -27,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
         genreFilterSelect.value = initialGenre;
     }
 
+    /**
+ * Applies the selected filters and sorting options to the product list by redirecting the user.
+ */
     function applyFiltersAndSorting() {
         const sortByValue = sortBySelect.value;
         const genreFilterValue = genreFilterSelect.value;
@@ -223,29 +231,29 @@ document.addEventListener('DOMContentLoaded', function () {
             const userId = cartContainer.dataset.userId;
 
             if (userId) {
-                fetch('/cart/' + userId + '/abandon', { 
+                fetch('/cart/' + userId + '/abandon', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        return response.json().then(data => {
-                            throw new Error(data.message || 'Failed to abandon cart.');
-                        });
-                    }
-                })
-                .then(data => {
-                    alert(data.message || 'Cart abandoned successfully.');
-                    window.location.reload(); 
-                })
-                .catch(error => {
-                    console.error('Error abandoning cart:', error);
-                    alert(error.message || 'Failed to abandon cart. Please try again.');
-                });
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            return response.json().then(data => {
+                                throw new Error(data.message || 'Failed to abandon cart.');
+                            });
+                        }
+                    })
+                    .then(data => {
+                        alert(data.message || 'Cart abandoned successfully.');
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error abandoning cart:', error);
+                        alert(error.message || 'Failed to abandon cart. Please try again.');
+                    });
             } else {
                 alert('Error: Could not identify the user. Please log in.');
             }
@@ -298,6 +306,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+/**
+ * Initializes the Google Maps API and centers the map on Oxford, NC.
+ */
 function initMap() {
     console.log('initMap called from scripts.js');
     const oxfordLocation = { lat: 36.3167744, lng: -78.5907712 };
@@ -360,6 +371,10 @@ window.onload = function () {
         }
     });
 
+    /**
+ * Finds nearby bookstores using the Google Places API based on the provided location.
+ * @param {object} location - An object with 'lat' and 'lng' properties representing the user's location.
+ */
     function findNearbyBookstores(location) {
         console.log('findNearbyBookstores called with location:', location, 'map:', map);
         if (bookstoreListDiv) {
