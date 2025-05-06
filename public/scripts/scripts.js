@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortBySelect = document.getElementById('sort-by');
     const genreFilterSelect = document.getElementById('genre-filter');
 
-    // On page load, set the dropdown values based on the URL parameters
     const initialSortBy = getQueryParam('sortBy');
     if (sortBySelect && initialSortBy) {
         sortBySelect.value = initialSortBy;
@@ -150,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (productId && userId && newQuantity > 0) {
                     fetch('/cart/' + userId + '/products/update/' + productId, {
-                        method: 'POST',
+                        method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ quantity: newQuantity }),
                     })
@@ -192,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (productId && userId && newQuantity > 0) {
                     fetch('/cart/' + userId + '/products/update/' + productId, {
-                        method: 'POST',
+                        method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ quantity: newQuantity }),
                     })

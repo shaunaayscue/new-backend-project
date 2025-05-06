@@ -147,10 +147,24 @@ function getOrdersByUserId(userId) {
 
 function abandonCart(userId) {
     try {
-        const result = db.run("UPDATE Carts SET cart_status = 'abandoned' WHERE user_id = ? AND cart_status = 'new';", [userId]);
-        return { success: result.changes > 0 };
+        const cart = db.get("SELECT cart_id FROM Carts WHERE user_id = ? AND cart_status = 'new';", [userId]);
+
+        if (!cart) {
+            console.log('No active cart found for user:', userId);
+            return { success: false, message: 'No active cart found.' };
+        }
+
+        const cartId = cart.cart_id;
+        const deleteResult = db.run("DELETE FROM CartProducts WHERE cart_id = ?;", [cartId]);
+        console.log('Deleted', deleteResult.changes, 'items from CartProducts for cart ID:', cartId);
+
+        const updateResult = db.run("UPDATE Carts SET cart_status = 'abandoned' WHERE cart_id = ?;", [cartId]);
+        console.log('Updated cart status to abandoned for cart ID:', cartId, 'Changes:', updateResult.changes);
+
+        return { success: updateResult.changes > 0 };
+
     } catch (error) {
-        console.error('Error abandoning cart in database:', error);
+        console.error('Error abandoning cart and clearing CartProducts in database:', error);
         throw error;
     }
 }

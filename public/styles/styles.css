@@ -511,10 +511,6 @@ text-align: center;
     width: 180px;
 }
 
-#splash a:hover {
-    background-color: #c3c5d3;
-}
-
 #cart-container {
     max-width: 800px;
     margin: 40px auto;
@@ -538,7 +534,7 @@ text-align: center;
 }
 
 #checkout-btn:hover {
-    background-color: #ddd;
+    background-color: rgb(43, 63, 92);
 }
 
 #order-history {
@@ -627,10 +623,12 @@ text-align: center;
 #dropdown-content {
     display: none;
     position: absolute;
+    background-color: #ffffff;
     min-width: 180px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
     border-radius: 4px;
+    right: 0;
 }
 
 #dropdown-content a {

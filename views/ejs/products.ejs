@@ -21,7 +21,6 @@
             <option value="price-desc" <%= locals.sortBy === 'price-desc' ? 'selected' : '' %>>Price (High to Low)</option>
         </select>
     </div>
-
                 <div id="filter">
                     <label for="genre-filter">Filter by Genre:</label>
                     <select id="genre-filter" name="genre">
@@ -38,7 +37,6 @@
             </div>
 
             <section class="category-section" id="search-results">
-
                 <div class="scroll-container">
                     <div class="product-grid" id="search-results-grid">
                         <% if (searchResults && searchResults.length> 0) { %>

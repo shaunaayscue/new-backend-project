@@ -1,0 +1,4 @@
+product_name,description,image_url,price,isbn,author,category_id,pages,publisher,featured,trending,new_release,is_archived
+The Little Prince,A philosophical novella about friendship and loss.,../images/little-prince.jpg,5.99,9780156012195,Antoine de Saint-Exupéry,2,96,Harcourt Brace & Company,1,0,0,0
+Gone Girl,A psychological thriller novel.,../images/gone-girl.jpg,11.75,9780307588371,Gillian Flynn,4,432,Crown Publishing Group,0,1,0,0
+Sapiens: A Brief History of Humankind,A non-fiction book exploring the history of Homo sapiens.,../images/sapiens.jpg,18.20,9780062316097,Yuval Noah Harari,1,498,Harper Perennial,1,1,0,0

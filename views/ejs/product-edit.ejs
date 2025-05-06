@@ -3,9 +3,9 @@
 
     <main>
         <h2>Edit Product</h2>
-        <form method="post" action="/admin/products/edit/<%= product.product_id %>">
+        <form method="post" action="/products/edit/<%= product.product_id %>">
             <input type="hidden" name="_method" value="PUT">
-            <fieldset>
+            </fieldset>
                 <legend>Product Information</legend>
                 <label for="product-id">Product ID:</label>
                 <input type="text" id="product-id" name="product_id" value="<%= product.product_id %>" readonly>

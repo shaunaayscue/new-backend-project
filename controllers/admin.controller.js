@@ -150,7 +150,7 @@ function deleteProduct(req, res, next) {
   try {
     const productId = req.params.product_id;
     adminModel.deleteProduct(productId);
-    const products = adminModel.getAllProductsForAdmin(); // <--- CORRECT FUNCTION NAME
+    const products = adminModel.getAllProductsForAdmin(); 
         const categories = model.getAllCategories()
         res.render("admin-products", { products: products, categories: categories, searchTerm: '' });
   } catch (err) {

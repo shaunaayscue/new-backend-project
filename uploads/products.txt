@@ -1,0 +1,41 @@
+product_name: To the Lighthouse
+description: A modernist novel by Virginia Woolf.
+image_url: ../images/to-the-lighthouse.jpg
+price: 9.25
+isbn: 9780156900739
+author: Virginia Woolf
+category_id: 3
+pages: 209
+publisher: Harcourt Brace & Company
+featured: 0
+trending: 0
+new_release: 0
+is_archived: 0
+
+product_name: Dune
+description: A science fiction epic set on a desert planet.
+image_url: ../images/dune.jpg
+price: 12.99
+isbn: 9780441013593
+author: Frank Herbert
+category_id: 5
+pages: 604
+publisher: Ace Books
+featured: 1
+trending: 1
+new_release: 0
+is_archived: 0
+
+product_name: Educated: A Memoir
+description: A powerful memoir about overcoming adversity.
+image_url: ../images/educated.jpg
+price: 16.50
+isbn: 9780399590504
+author: Tara Westover
+category_id: 1
+pages: 352
+publisher: Random House
+featured: 1
+trending: 0
+new_release: 1
+is_archived: 0

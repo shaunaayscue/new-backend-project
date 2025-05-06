@@ -8,14 +8,14 @@ const adminRoutes = require("./routes/admin.route");
 const cartRoutes = require("./routes/cart.route");
 const authRoutes = require("./auth/auth.route");
 const bookstoreRoutes = require('./routes/bookstore.route');
-const homeRoutes = require('./routes/home.route'); // Import home routes
+const homeRoutes = require('./routes/home.route'); 
 
 const { db_close } = require("./models/db-conn");
 
 const ensureAuth = require("./auth/auth.middleware");
 const methodOverride = require('method-override');
 const adminController = require("./controllers/admin.controller");
-const productsController = require("./controllers/products.controller"); // Import products controller
+const productsController = require("./controllers/products.controller");
 
 const app = express();
 
@@ -55,14 +55,11 @@ app.get('/admin/products/bulk', ensureAuth, (req, res) => {
   res.render('admin-upload', { user: req.user });
 });
 
-app.get("/admin/products/edit/:product_id", ensureAuth, adminController.editProductForm);
-
+app.use(methodOverride('_method'));
 app.post('/admin/products/edit/:product_id', ensureAuth, adminController.editProduct);
-
 
 app.get('/admin/products/delete/:product_id', ensureAuth, adminController.deleteProduct);
 
-app.use(methodOverride('_method'));
 app.post('/admin/products/archive/:product_id', ensureAuth, adminController.archiveProduct);
 
 app.get('/admin/products/list', ensureAuth, adminController.getAllProducts);

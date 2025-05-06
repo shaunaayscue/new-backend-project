@@ -25,17 +25,16 @@ function getAllProducts(req, res, next) {
     const sortBy = req.query.sortBy;
     const category_name = req.query.category_name || 'all';
     try {
-        const products = model.getAllProducts(sortBy);
-        const categories = model.getAllCategories();
-        const filteredProducts = category_name === 'all' ? products : products.filter(p => p.category_name === category_name);
+        const products =  model.getAllProducts(sortBy, category_name); 
+        const categories =  model.getAllCategories();
         res.render("products", {
-            products: filteredProducts.filter(p => p.is_archived === 0),
+            products: products.filter(p => p.is_archived === 0),
             searchResults: [],
             searchPerformed: false,
             title: ' ',
             categories: categories,
             selectedCategory: category_name,
-            sortBy: sortBy || '' // Ensure sortBy is passed
+            sortBy: sortBy || ''
         });
     } catch (err) {
         console.error("Error while getting products ", err.message);
@@ -125,7 +124,7 @@ function getAllProductsPage(req, res, next) {
             searchPerformed: true,
             categories: categories,
             selectedCategory: category_name || 'all',
-            sortBy: sortBy || '' // Ensure sortBy is passed
+            sortBy: sortBy || '' 
         });
     } else {
         const products = model.getAllProducts(sortBy);
@@ -136,17 +135,10 @@ function getAllProductsPage(req, res, next) {
             searchPerformed: false,
             categories: categories,
             selectedCategory: category_name || 'all',
-            sortBy: sortBy || '' // Ensure sortBy is passed
+            sortBy: sortBy || '' 
         });
     }
 }
-
-/*function getAllProductsOnly(req, res, next) {
-    const sortBy = req.query.sortBy;
-    const products = model.getAllProducts(sortBy);
-    const categories = model.getAllCategories();
-    res.render('products', { products, categories, searchResults: [], searchPerformed: false, title: ' ', selectedCategory: 'all', sortBy: sortBy || '' }); // Ensure sortBy is passed
-}*/
 
 module.exports = {
     getAllProducts,
@@ -154,5 +146,4 @@ module.exports = {
     getProductById,
     getHomePage,
     getAllProductsPage,
-   // getAllProductsOnly,
 };

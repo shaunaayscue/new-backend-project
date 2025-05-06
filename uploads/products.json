@@ -1,0 +1,47 @@
+[
+  {
+    "product_name": "The Secret Garden",
+    "description": "A children's classic about discovery and friendship.",
+    "image_url": "../images/secret-garden.jpg",
+    "price": 6.99,
+    "isbn": "9780140361737",
+    "author": "Frances Hodgson Burnett",
+    "category_id": 2,
+    "pages": 368,
+    "publisher": "Puffin",
+    "featured": 1,
+    "trending": 0,
+    "new_release": 0,
+    "is_archived": 0
+  },
+  {
+    "product_name": "The Da Vinci Code",
+    "description": "A thrilling mystery novel.",
+    "image_url": "../images/da-vinci-code.jpg",
+    "price": 10.50,
+    "isbn": "9780307277671",
+    "author": "Dan Brown",
+    "category_id": 4,
+    "pages": 464,
+    "publisher": "Doubleday",
+    "featured": 0,
+    "trending": 1,
+    "new_release": 0,
+    "is_archived": 0
+  },
+  {
+    "product_name": "Becoming",
+    "description": "The memoir of Michelle Obama.",
+    "image_url": "../images/becoming.jpg",
+    "price": 15.00,
+    "isbn": "9781524763138",
+    "author": "Michelle Obama",
+    "category_id": 1,
+    "pages": 448,
+    "publisher": "Crown",
+    "featured": 1,
+    "trending": 1,
+    "new_release": 1,
+    "is_archived": 1
+  }
+]
