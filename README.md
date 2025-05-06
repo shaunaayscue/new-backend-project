@@ -61,8 +61,8 @@ Places API
 - Click “Create Credentials” → “API Key”
 - Google will generate a key for you.
 - Next you will need to edit the API key:
-- Under Application restrictions click 'None'
-- Under API restrictions click 'Restrict key' and choose 'Maps JavaScript' and 'Places API'
+  - Under Application restrictions click 'None'
+  - Under API restrictions click 'Restrict key' and choose 'Maps JavaScript' and 'Places API'
 
 - In the code provided, replace 'YOUR_API_KEY' in your Node.js code with your actual API key google provided, specifically in 
 ```
