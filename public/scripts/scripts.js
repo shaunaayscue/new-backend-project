@@ -8,21 +8,23 @@ let mapInitialized = false;
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('product-search-input');
     const genreFilter = document.getElementById('genre-filter');
-    const allGenreOptions = Array.from(genreFilter.options); 
+    const allGenreOptions = Array.from(genreFilter ? genreFilter.options : []);
 
-    searchInput.addEventListener('input', function () {
-        const searchTerm = this.value.trim().toLowerCase();
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            const searchTerm = this.value.trim().toLowerCase();
 
-        allGenreOptions.forEach(option => {
-            if (option.value === 'all') {
-                option.style.display = ''; 
-            } else if (option.textContent.toLowerCase().includes(searchTerm)) {
-                option.style.display = ''; 
-            } else {
-                option.style.display = 'none'; 
-            }
+            allGenreOptions.forEach(option => {
+                if (option.value === 'all') {
+                    option.style.display = '';
+                } else if (option.textContent.toLowerCase().includes(searchTerm)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
         });
-    });
+    }
 
     /**
     * Retrieves a query parameter from the current URL.
@@ -30,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
     * @returns {string|null} The value of the query parameter, or null if not found.
     */
     function applyFiltersAndSorting() {
-        const sortByValue = document.getElementById('sort-by').value;
-        const genreFilterValue = genreFilter.value;
+        const sortByValue = document.getElementById('sort-by') ? document.getElementById('sort-by').value : '';
+        const genreFilterValue = genreFilter ? genreFilter.value : 'all';
         const searchTermValue = searchInput ? searchInput.value.trim() : '';
 
         let url = '/products?';
@@ -55,7 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = url;
     }
 
-    genreFilter.addEventListener('change', applyFiltersAndSorting);
+    if (genreFilter) {
+        genreFilter.addEventListener('change', applyFiltersAndSorting);
+    }
 
     const sortBySelect = document.getElementById('sort-by');
     if (sortBySelect) {
