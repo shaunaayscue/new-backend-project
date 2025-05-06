@@ -15,11 +15,11 @@ git clone https://github.com/shaunaayscue/new-backend-project
 - Create a project
 - Click “+ CREATE CREDENTIALS” → choose OAuth client ID
 - Select Application type: Web application and name it
--Authorized JavaScript origins (where your app will running at): 
+- Authorized JavaScript origins (where your app will running at): 
 ```
 http://localhost:3000
 ```
--Authorized redirect URIs (the subroutine to take users through authentication): 
+- Authorized redirect URIs (the subroutine to take users through authentication): 
 ```
 http://localhost:3000/auth/google/callback
 ```
