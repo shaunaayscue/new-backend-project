@@ -288,36 +288,6 @@ function getAllProducts(req, res, next) {
 
 function editProductForm(req, res, next) {
   try {
-    const product = fetchProductById(req.params.product_id);
-    const categories = fetchAllCategories();
-    if (!product) {
-      return res.status(404).send("Product not found");
-    }
-    res.render("product-edit", { product, categories, user: req.user });
-  } catch (error) {
-    console.error("Error fetching product for edit:", error.message);
-    next(error);
-  }
-}
-
-/*function archiveProduct(req, res, next) {
-  const productId = req.params.product_id;
-  console.log("--- Archive Attempt ---");
-  console.log("Product ID to archive:", productId);
-  console.log("Request Parameters:", req.params);
-  console.log("Request Body:", req.body);
-  try {
-    const result = archiveExistingProduct(productId);
-    console.log("Database Result:", result);
-    res.redirect("/admin/products/list");
-  } catch (error) {
-    console.error("Error archiving product:", error);
-    next(error);
-  }
-}*/
-
-function editProductForm(req, res, next) {
-  try {
     const product_id = req.params.product_id;
     const product = model.getProductById(product_id);
     const categories = model.getAllCategories();
