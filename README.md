@@ -38,7 +38,7 @@ In your browser, go to:
 ```
 http://localhost:3000/
 ```
-- I inserted a default 'shopper' and 'admin' into into the database, but could create your own if want, using the 'Sign Up Now' button or at the account dropdown.
+- I inserted a default 'shopper' and 'admin' user into into the database, but you could create your own if want, using the 'Sign Up Now' button or at the account dropdown or login with a google account.
   - shopper
       - email: alice@example.com
       -  password: 123
