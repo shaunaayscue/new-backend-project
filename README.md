@@ -64,6 +64,11 @@ Places API
 - Under Application restrictions click 'None'
 - Under API restrictions click 'Restrict key' and choose 'Maps JavaScript' and 'Places API'
 
-- In the code provided, replace 'YOUR_API_KEY' in your Node.js code with your actual API key
-
-  
+- In the code provided, replace 'YOUR_API_KEY' in your Node.js code with your actual API key google provided, specifically in 
+```
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" defer></script>
+```
+and 
+```
+const GOOGLE_API_KEY = 'YOUR_API_KEY';
+```
