@@ -18,4 +18,6 @@ router.post("/products/bulk", ensureAuth, adminController.bulkUploadProducts);
 
 router.get("/products/list", ensureAuth, adminController.getAllProducts);
 
+router.get('/products/edit/:product_id', ensureAuth, adminController.editProductForm);
+
 module.exports = router;
