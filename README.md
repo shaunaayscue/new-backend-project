@@ -32,11 +32,11 @@ npm install
 ```
 - Start the server
 ```
-nodemon server.js
+node server.js
 ```
 In your browser, go to:
 ```
-http://localhost:3000
+http://localhost:3000/
 ```
 - I inserted a default 'shopper' and 'admin' into into the database, but could create your own if wanted.
   - shopper
@@ -72,3 +72,5 @@ and
 ```
 const GOOGLE_API_KEY = 'YOUR_API_KEY';
 ```
+- Restart the server again with node server.js and refresh the browser.
+
