@@ -45,7 +45,7 @@ http://localhost:3000/
   - admin
       - email: admin@example.com
       -  password: 123
-### API
+### API: Finds bookstores near you.
 - In the project that you created earlier at console.cloud.google.com, go to APIs & Services. 
 - Click 'Enable APIs and services'
 - You need to enable:
@@ -73,4 +73,4 @@ and
 const GOOGLE_API_KEY = 'YOUR_API_KEY';
 ```
 - Restart the server again with node server.js and refresh the browser.
-
+  - Then click the 'Find Bookstores' button and allow http://localhost:3000 to know your location. 
