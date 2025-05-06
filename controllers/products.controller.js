@@ -1,5 +1,6 @@
 "use strict";
 const model = require("../models/products.model");
+const adminModel = require("../models/admin.model");
 
 function getHomePage(req, res, next) {
     try {
@@ -22,8 +23,8 @@ function getHomePage(req, res, next) {
 }
 
 function getAllProducts(req, res, next) {
-    const sortBy = req.query.sortBy;
-    const category_name = req.query.category_name || 'all';
+    let sortBy = req.query.sortBy;
+    let category_name = req.query.category_name || 'all';
     try {
         const products =  model.getAllProducts(sortBy, category_name); 
         const categories =  model.getAllCategories();
@@ -33,7 +34,7 @@ function getAllProducts(req, res, next) {
             searchPerformed: false,
             title: ' ',
             categories: categories,
-            selectedCategory: category_name,
+            selectedCategory: category_name || 'all',
             sortBy: sortBy || ''
         });
     } catch (err) {
@@ -43,35 +44,25 @@ function getAllProducts(req, res, next) {
 }
 
 function searchProducts(req, res, next) {
-    let attribute = req.query.attribute;
-    let value = req.query.value;
+    let sortBy = req.query.sortBy;
     let category_name = req.query.category_name;
-    const sortBy = req.query.sortBy;
+    let searchTerm = req.query.value;
 
     try {
-        let searchResults;
+        let searchResults = [];
         const categories = model.getAllCategories();
+        let searchPerformed = false;
 
-        if (attribute && value && category_name && category_name !== "") {
-            const validColumns = model.getColumnNames();
-            if (!validColumns.includes(attribute)) {
-                return res.status(400).send("Invalid attribute provided");
-            }
-            const searchValue = "%" + value + "%";
-            searchResults = model.searchByAttributeAndCategory(attribute, searchValue, category_name, sortBy);
-        }
-        else if (attribute && value) {
-            const validColumns = model.getColumnNames();
-            if (!validColumns.includes(attribute)) {
-                return res.status(400).send("Invalid attribute provided");
-            }
-            const searchValue = "%" + value + "%";
-            searchResults = model.getAllByOneAttribute(attribute, searchValue, sortBy);
-        }
-        else if (category_name && category_name !== "all") {
+        if (searchTerm) {
+            searchPerformed = true;
+            const nameResults = model.searchProductsByName(searchTerm, sortBy);
+            const categoryResults = adminModel.getAdminProductsByCategory(searchTerm, sortBy);
+
+            searchResults = [...nameResults, ...categoryResults];
+        } else if (category_name && category_name !== "all") {
+            searchPerformed = true;
             searchResults = model.getProductsByCategory(category_name, sortBy);
-        }
-        else {
+        } else {
             const products = model.getAllProducts(sortBy);
             return res.render("products", {
                 products: products.filter(p => p.is_archived === 0),
@@ -79,7 +70,8 @@ function searchProducts(req, res, next) {
                 searchPerformed: false,
                 title: ' ',
                 categories: categories,
-                selectedCategory: category_name
+                selectedCategory: category_name || 'all',
+                sortBy: sortBy || ''
             });
         }
 
@@ -88,10 +80,12 @@ function searchProducts(req, res, next) {
         res.render("products", {
             products: [],
             searchResults: searchResults,
-            searchPerformed: true,
+            searchPerformed: searchPerformed,
             categories: categories,
-            selectedCategory: category_name
+            selectedCategory: category_name || 'all',
+            sortBy: sortBy || ''
         });
+
     } catch (err) {
         console.error("Error in searchProducts:", err.message);
         next(err);
@@ -140,10 +134,23 @@ function getAllProductsPage(req, res, next) {
     }
 }
 
+async function getGenresBySearch(req, res, next) {
+    const searchTerm = req.query.search;
+
+    try {
+        const genres = await model.findGenresByProductName(searchTerm); 
+        res.json(genres);
+    } catch (error) {
+        console.error('Error fetching genres by search:', error);
+        res.status(500).json({ error: 'Failed to fetch genres' });
+    }
+}
+
 module.exports = {
     getAllProducts,
     searchProducts,
     getProductById,
     getHomePage,
     getAllProductsPage,
+    getGenresBySearch,
 };

@@ -6,23 +6,20 @@
             <h2>Explore Our Books</h2>
             <div id="search-container">
                 <form action="/products" method="GET">
-                    <input type="text" id="search" name="value" placeholder="Search for your next read...">
-                    <button type="submit" id="search-btn">Go</button>
-                    <input type="hidden" name="attribute" value="product_name">
-                </form>
+                    <form action="/products" method="GET">
+                        <input type="text" id="product-search-input" name="value"
+                            placeholder="Search for your next read...">
+                        <button type="submit" id="search-btn">Go</button>
+                    </form>
             </div>
+
             <div id="sort-filter-container">
-    <div id="sorting-options">
-        <label for="sort-by">Sort By:</label>
-        <select id="sort-by">
-            <option value="name-asc" <%= locals.sortBy === 'name-asc' ? 'selected' : '' %>>Name (A-Z)</option>
-            <option value="name-desc" <%= locals.sortBy === 'name-desc' ? 'selected' : '' %>>Name (Z-A)</option>
-            <option value="price-asc" <%= locals.sortBy === 'price-asc' ? 'selected' : '' %>>Price (Low to High)</option>
-            <option value="price-desc" <%= locals.sortBy === 'price-desc' ? 'selected' : '' %>>Price (High to Low)</option>
-        </select>
-    </div>
+                <div id="sorting-options">
+                    <label for="sort-by">Sort By:</label>
+                    <select id="sort-by">
+                    </select>
+                </div>
                 <div id="filter">
-                    <label for="genre-filter">Filter by Genre:</label>
                     <select id="genre-filter" name="genre">
                         <option value="all" <%=selectedCategory==='all' ? 'selected' : '' %>>All Genres</option>
                         <option value="fiction" <%=selectedCategory==='fiction' ? 'selected' : '' %>>Fiction</option>
@@ -35,6 +32,9 @@
                     </select>
                 </div>
             </div>
+
+            <section class="category-section" id="search-results">
+            </section>
 
             <section class="category-section" id="search-results">
                 <div class="scroll-container">

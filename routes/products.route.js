@@ -19,4 +19,6 @@ router.get("/cart", ensureAuth, cartController.viewCart);
 //http://localhost:3000/products/5
 router.get("/:product_id", productsController.getProductById);
 
+router.get('/genres', productsController.getGenresBySearch);
+
 module.exports = router;

@@ -5,41 +5,40 @@ let bookstoreListDiv;
 let messageDiv;
 let mapInitialized = false;
 
-/**
- * Retrieves a query parameter from the current URL.
- * @param {string} name - The name of the query parameter to retrieve.
- * @returns {string|null} The value of the query parameter, or null if not found.
- */
-function getQueryParam(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOMContentLoaded fired');
-    console.log('Map object in DOMContentLoaded:', map);
+    const searchInput = document.getElementById('product-search-input');
+    const genreFilter = document.getElementById('genre-filter');
+    const allGenreOptions = Array.from(genreFilter.options); 
 
-    const sortBySelect = document.getElementById('sort-by');
-    const genreFilterSelect = document.getElementById('genre-filter');
+    searchInput.addEventListener('input', function () {
+        const searchTerm = this.value.trim().toLowerCase();
 
-    const initialSortBy = getQueryParam('sortBy');
-    if (sortBySelect && initialSortBy) {
-        sortBySelect.value = initialSortBy;
-    }
-
-    const initialGenre = getQueryParam('category_name');
-    if (genreFilterSelect && initialGenre && initialGenre !== 'all') {
-        genreFilterSelect.value = initialGenre;
-    }
+        allGenreOptions.forEach(option => {
+            if (option.value === 'all') {
+                option.style.display = ''; 
+            } else if (option.textContent.toLowerCase().includes(searchTerm)) {
+                option.style.display = ''; 
+            } else {
+                option.style.display = 'none'; 
+            }
+        });
+    });
 
     /**
- * Applies the selected filters and sorting options to the product list by redirecting the user.
- */
+    * Retrieves a query parameter from the current URL.
+    * @param {string} name - The name of the query parameter to retrieve.
+    * @returns {string|null} The value of the query parameter, or null if not found.
+    */
     function applyFiltersAndSorting() {
-        const sortByValue = sortBySelect.value;
-        const genreFilterValue = genreFilterSelect.value;
+        const sortByValue = document.getElementById('sort-by').value;
+        const genreFilterValue = genreFilter.value;
+        const searchTermValue = searchInput ? searchInput.value.trim() : '';
 
         let url = '/products?';
+
+        if (searchTermValue !== '') {
+            url += 'value=' + searchTermValue + '&';
+        }
 
         if (sortByValue !== '') {
             url += 'sortBy=' + sortByValue + '&';
@@ -56,12 +55,37 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = url;
     }
 
+    genreFilter.addEventListener('change', applyFiltersAndSorting);
+
+    const sortBySelect = document.getElementById('sort-by');
     if (sortBySelect) {
+        const sortOptions = [
+            { value: 'name-asc', text: 'Name (A-Z)' },
+            { value: 'name-desc', text: 'Name (Z-A)' },
+            { value: 'price-asc', text: 'Price (Low to High)' },
+            { value: 'price-desc', text: 'Price (High to Low)' }
+        ];
+
+        sortOptions.forEach(optionData => {
+            const option = document.createElement('option');
+            option.value = optionData.value;
+            option.textContent = optionData.text;
+            const initialSortBy = getQueryParam('sortBy');
+            if (initialSortBy === optionData.value) {
+                option.selected = true;
+            }
+            sortBySelect.appendChild(option);
+        });
+
         sortBySelect.addEventListener('change', applyFiltersAndSorting);
     }
 
-    if (genreFilterSelect) {
-        genreFilterSelect.addEventListener('change', applyFiltersAndSorting);
+    /**
+    * Applies the selected filters and sorting options to the product list by redirecting the user.
+    */
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
     }
 
     const addToCartBtn = document.getElementById('add-to-cart-btn');

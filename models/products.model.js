@@ -6,9 +6,15 @@ function getBooksByFlag(flag, value) {
     return db.all(query, [value]);
 }
 
-function getAllProducts(sortBy) {
+function getAllProducts(sortBy, categoryName) {
     let sql = "SELECT p.*, c.category_name FROM Products p LEFT JOIN Categories c ON p.category_id = c.category_id WHERE p.is_archived = 0";
     const validSortOptions = ['name-asc', 'name-desc', 'price-asc', 'price-desc'];
+    const params = [];
+
+    if (categoryName && categoryName !== 'all') {
+        sql += " AND LOWER(c.category_name) = LOWER(?)";
+        params.push(categoryName);
+    }
 
     if (sortBy && validSortOptions.includes(sortBy)) {
         if (sortBy === 'name-asc') {
@@ -21,14 +27,9 @@ function getAllProducts(sortBy) {
             sql += " ORDER BY p.price DESC";
         }
     }
-    console.log("getAllProducts SQL:", sql);
-    const allProducts = db.all(sql);
-    const updatedProducts = allProducts.map(product => ({
-        ...product,
-        image_url: product.image_url.startsWith('/') ? product.image_url : '/' + product.image_url,
-        category_name: product.category_name
-    }));
-    return updatedProducts;
+
+    console.log("getAllProducts SQL:", sql, params);
+    return db.all(sql, params);
 }
 
 function getAllProductsWithCategoryNames() {
@@ -42,11 +43,24 @@ function getAllProductsWithCategoryNames() {
     return updatedProducts;
 }
 
-function getProductsByCategory(category_name) {
-    let sql = "SELECT p.* FROM Products p JOIN Categories c ON p.category_id = c.category_id WHERE LOWER(c.category_name) = LOWER(?) AND p.is_archived = 0;";
-    console.log("getProductsByCategory SQL:", sql);
-    const data = db.all(sql, [category_name]);
-    return data;
+function getProductsByCategory(category_name, sortBy) {
+    let sql = "SELECT p.*, c.category_name FROM Products p JOIN Categories c ON p.category_id = c.category_id WHERE LOWER(c.category_name) = LOWER(?) AND p.is_archived = 0";
+    const validSortOptions = ['name-asc', 'name-desc', 'price-asc', 'price-desc'];
+
+    if (sortBy && validSortOptions.includes(sortBy)) {
+        if (sortBy === 'name-asc') {
+            sql += " ORDER BY p.product_name ASC";
+        } else if (sortBy === 'name-desc') {
+            sql += " ORDER BY p.product_name DESC";
+        } else if (sortBy === 'price-asc') {
+            sql += " ORDER BY p.price ASC";
+        } else if (sortBy === 'price-desc') {
+            sql += " ORDER BY p.price DESC";
+        }
+    }
+
+    console.log("getProductsByCategory SQL:", sql, [category_name]);
+    return db.all(sql, [category_name]);
 }
 
 function getAllByOneAttribute(attribute, value) {
@@ -106,6 +120,17 @@ function getAdminProductsByCategory(category_name) {
     }));
 }
 
+function findGenresByProductName(searchTerm) {
+    const sql = `
+        SELECT DISTINCT c.category_name
+        FROM Products p
+        JOIN Categories c ON p.category_id = c.category_id
+        WHERE LOWER(p.product_name) LIKE LOWER('%' || ? || '%')
+        AND p.is_archived = 0;
+    `;
+    return db.all(sql, [searchTerm]).then(rows => rows.map(row => row.category_name));
+}
+
 module.exports = {
     getAllProducts,
     getProductsByCategory,
@@ -119,4 +144,5 @@ module.exports = {
     searchProductsByName,
     searchProductsByNameAndCategory,
     getAdminProductsByCategory,
+    findGenresByProductName,
 };
