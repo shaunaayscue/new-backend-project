@@ -38,6 +38,13 @@ In your browser, go to:
 ```
 http://localhost:3000
 ```
+- I inserted a default 'shopper' and 'admin' into into the database.
+  - shopper
+      - email: alice@example.com
+      -  password: 123
+  - admin
+      - email: admin@example.com
+      -  password: 123
 API
 - In the project that you created earlier at console.cloud.google.com, go to APIs & Services. 
 - Click 'Enable APIs and services'
@@ -58,3 +65,5 @@ Places API
 - Under API restrictions click 'Restrict key' and choose 'Maps JavaScript' and 'Places API'
 
 - In the code provided, replace 'YOUR_API_KEY' in your Node.js code with your actual API key
+
+  
