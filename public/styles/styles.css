@@ -90,7 +90,6 @@ button {
     gap: 15px;
     margin: 0 auto;
     width: calc(265px * 4);
-    box-sizing: content-box;
 }
 
 .product-grid {
@@ -488,7 +487,7 @@ text-align: center;
     justify-content: space-between;
     gap: 15px;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: center; 
 }
 
 #sorting-options,
@@ -646,3 +645,4 @@ text-align: center;
     height: 400px; 
     width: 100%;
 } 
+
